@@ -41,23 +41,11 @@
     <div class="row justify-content-center">
       <section class="col-12 col-sm-8">
         <form class="form-container mt-5" action="analise.php" method="post">
-          <h4 class="text-center mt-3 mb-4">DADOS PESSOAIS</h4>
+          <h4 class="text-center mt-3 mb-5">DADOS PESSOAIS</h4>
          
             <?= desenhar_tabela_usuario() ?>
-      <div class="row ">
-      <div class="col-3">
-        <button type="submit" class="btn btn-outline-primary">Adicionar Conta</button>
-      </div>
+     
       
-      </div>
-      <div class="row mt-3">
-            <div class="col-3 ms-3">
-              <a href="usuario_acao.php?acao=logout"><i class="bi bi-box-arrow-left"></i></a>
-            </div>
-            <div class="col-2">
-              <p>Sair</p>
-            </div>
-          </div>
 
         </form>
         
