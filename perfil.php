@@ -40,14 +40,14 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <section class="col-12 col-sm-8">
-        <form class="form-container mt-5" action="analise.php" method="post">
+        <div class="form-container mt-5"  style='background-color:white'>
           <h4 class="text-center mt-3 mb-5">DADOS PESSOAIS</h4>
          
             <?= desenhar_tabela_usuario() ?>
      
       
 
-        </form>
+        
         
        
 

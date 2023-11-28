@@ -61,9 +61,14 @@ function desenhar_tabela_usuario()
 
     <section class='col-6 order-1'>
     <div class='row'><div class='col-6'>
-    <img src='imgs/{$key['foto']}' alt='PERFIL' width='320px'></div></div>
-    <div class='row'><div class='col-6'><a role='button' class='btn btn-outline-primary' href='pagfoto.php?id=" . $key['id'] . "'> Adicionar Foto    
-    </a></div></div>
+    <form action='usuario_acao.php' method='post' enctype='multipart/form-data'>
+
+        <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . "'>
+
+        <input type='file' name='foto' id='foto' accept='image/*'>
+        <br>
+        <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
+    </form></div>
     </section>
     ";
 
@@ -124,10 +129,15 @@ function desenhar_tabela_usuario()
                   <i class='bi bi-person-plus-fill' alt='foto de perfil' style='font-size:230px'></i>
                   </div>
               </div>
-              <div class='row justify-content-center'>
-                  <div class='col-6'><a role='button' class='btn btn-outline-primary' href='pagfoto.php?id=" . $key['id'] . "'> Adicionar Foto  </a>  
-                  </a>
-                  </div>
+              <div class='row'><div class='col-6'>
+    <form action='usuario_acao.php' method='post' enctype='multipart/form-data'>
+
+        <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . "'>
+
+        <input type='file' name='foto' id='foto' accept='image/*'>
+        <br>
+        <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
+    </form></div>
                   </div>
                   </section>
                   </div>

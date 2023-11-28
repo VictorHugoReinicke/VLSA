@@ -122,7 +122,8 @@
             $novo['id'] = date("YmdHis");
         }
             return $novo;
-    }
+
+        }
 
     function altera()
     {
