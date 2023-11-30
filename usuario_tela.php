@@ -43,6 +43,10 @@ function desenhar_tabela_usuario()
     </div>
     <div class='row mt-4'>
     <div class='col-5'>
+
+    <div class='row'><div class='col-6'>
+    <img src='imgs/{$key['foto']}' alt='PERFIL' width='320px'></div>
+
     <button type='submit' class='btn btn-outline-primary'>Adicionar Conta</button>
   </div>
   <div class='col-5'>
@@ -132,7 +136,7 @@ function desenhar_tabela_usuario()
               <div class='row'><div class='col-6'>
     <form action='usuario_acao.php' method='post' enctype='multipart/form-data'>
 
-        <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . "'>
+        <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . ">
 
         <input type='file' name='foto' id='foto' accept='image/*'>
         <br>
