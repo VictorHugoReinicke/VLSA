@@ -24,14 +24,14 @@ if (!isset($_SESSION["user"])) {
     <div class="logo_header">
       <img class="img_logo" src="img/vlsa logo.png" alt="Logo VLSA">
     </div>
-    <div class="navigation_header">
+    <div class="navigation_header justify-content-center">
       <a class="active" href="#">Inserir Link</a>
       <a href="hist.php">Histórico</a>
-      <a href="perfil.php">Perfil</a>
+       <a href="perfil.php">Perfil</a>
     </div>
   </div>
-  <div class="container-fluid">
-    <div class="row justify-content-center">
+  <div class="container-fluid align-items-center">
+    <div class="row justify-content-center ">
       <section class="col-12 col-sm-8">
         <form class="form-container mt-5" action="link_acao.php" method="post">
           <h4 class="text-center mt-3">INSERIR LINK</h4>

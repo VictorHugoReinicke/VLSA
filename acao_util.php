@@ -50,7 +50,7 @@ function excluir()
  */
 function salvar()
 {
-    $verif = 0;
+    
     $json = NULL;
     $pessoa = tela2array();
     $cad = valcad();
@@ -98,7 +98,6 @@ function fotos()
 {
     $novo = tela2array();
     $json = ler_json(ARQUIVO_JSON);
-
         for ($x = 0; $x < count($json); $x++) {
             
             if ($json[$x]->id === $novo['id']) {
