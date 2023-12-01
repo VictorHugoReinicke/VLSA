@@ -20,17 +20,25 @@ if (!isset($_SESSION["user"])) {
 
 ?>
 <body>
-  <div class="header" id="header">
-    <div class="logo_header">
+<div class="header" id="header">
+    <section class="col-4 order-0">
+    <div class="row justify-content-start">
+    <div class="col-auto logo_header">
       <img class="img_logo" src="img/vlsa logo.png" alt="Logo VLSA">
     </div>
-    <div class="navigation_header justify-content-center">
-      <a class="active" href="#">Inserir Link</a>
-      <a href="hist.php">Histórico</a>
-       <a href="perfil.php">Perfil</a>
     </div>
-  </div>
-  <div class="container-fluid align-items-center">
+    </section>
+  <section class="col-3 order-1">
+    <div class="row justify-content-center">
+    <div class="col navigation_header d-flex justify-content-center">
+  <a class="active" href="#">Inserir Link</a>
+  <a href="hist.php">Histórico</a>
+  <a href="perfil.php">Perfil</a>
+</div>
+    </div>
+  </section>
+</div>
+  <div class="container-fluid">
     <div class="row justify-content-center ">
       <section class="col-12 col-sm-8">
         <form class="form-container mt-5" action="link_acao.php" method="post">

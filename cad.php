@@ -56,7 +56,7 @@
                     </div>
                     <div class="row justify-content-center mt-3">
                         <div class="col-5">
-                            <label for="email" class="form-label ms-4 ps-3">E-mail</label>
+                            <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control input-email inputs required" id="email" name="email" placeholder="" value="<?php if ($id != 0)
                                                                                                                                                     echo $dados['email']; ?>">
 
