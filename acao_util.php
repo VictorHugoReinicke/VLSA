@@ -114,7 +114,7 @@ function fotos()
 
 function linkurl()
 {
-    if (file_exists("link.json")) {
+    
         $json = NULL;
         $links = linksarray();
         $json = ler_json(ARQUIVO_JSON);
@@ -127,5 +127,5 @@ function linkurl()
 
         salvar_json(json_encode($json), ARQUIVO_JSON);
         header("location:" . DESTINO);
-    }
+    
 }
