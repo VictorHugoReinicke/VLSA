@@ -15,129 +15,135 @@
 session_start();
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
-}
-elseif(!file_exists("usu.json"))
-{
-  header("Location: login.php");
+} elseif (!file_exists("usu.json")) {
+    header("Location: login.php");
 }
 include "navbar.php";
 ?>
 
 <body>
-    
-<div class="container-fluid">
-        <div class="row justify-content-center">
-            <section class="col-12 col-sm-12">
-                <div class="form-container mt-4" style="background-color: white;">
-                    <div class="row justify-content-center">
-                        <div class="col-8">
-                            <div class="input-group mb-3">
 
-                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
+    <div class="container-fluid" style="margin: 0 auto;">
+            <div class="row mx-auto justify-content-center">
+                <section class="col-12 col-sm-12">
+                    <div class="col-8 form-container mt-4" style="background-color: white;transform: translateY(-50%);transform: translateX(20%);">
+                        <div class="col-10 mx-auto">
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="input-group mb-3">
 
+                                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
+                        <div class="row mt-4">
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
+                            <div class="col-2"></div>
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-2"></div>
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
 
-
-
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
 
+
+
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
+                            <div class="col-2"></div>
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-2"></div>
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
 
-
-
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
 
+
+
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
+                            <div class="col-2"></div>
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
 
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-2"></div>
+                            <div class="col-2">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                         </div>
 
-
-
-                    </div>
-
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
 </body>
 
 </html>
