@@ -111,3 +111,21 @@ function fotos()
 
     header("location:perfil.php");
 }
+
+function linkurl()
+{
+    
+    $json = NULL;
+    $link = links();
+    $links = linksarray();
+    $json = ler_json(ARQUIVO_JSON);
+
+    if ($json == NULL) {
+        $json = array();
+    }
+
+    array_push($json, $links);
+
+    salvar_json(json_encode($json), ARQUIVO_JSON);
+    header("location:".DESTINO);
+}

@@ -21,28 +21,11 @@ elseif(!file_exists("usu.json"))
 {
   header("Location: login.php");
 }
-
+ include "navbar.php";
 
 ?>
 <body>
-<div class="header" id="header">
-    <section class="col-4 order-0">
-    <div class="row justify-content-start">
-    <div class="col-auto logo_header">
-      <img class="img_logo" src="img/vlsa logo.png" alt="Logo VLSA">
-    </div>
-    </div>
-    </section>
-  <section class="col-3 order-1">
-    <div class="row justify-content-center">
-    <div class="col navigation_header d-flex justify-content-center">
-  <a class="active" href="#">Inserir Link</a>
-  <a href="hist.php">Histórico</a>
-  <a href="perfil.php">Perfil</a>
-</div>
-    </div>
-  </section>
-</div>
+
   <div class="container-fluid">
     <div class="row justify-content-center ">
       <section class="col-12 col-sm-8">
@@ -60,6 +43,7 @@ elseif(!file_exists("usu.json"))
               <input type="text" class="form-control" id="link" name="link" placeholder="">
             </div>
           </div>
+          <input type="text" name="idusu" id="idusus" value="<?= $_SESSION['user'] ?>" hidden>
           <div class="row mt-3">
             <div class="d-grid gap-2 col-6 mx-auto pb-4 mt-3">
               <button type="submit" class="btn btn-outline-primary" name="acao" id="acao" value="Salvar">Analisar</button>

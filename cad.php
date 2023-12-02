@@ -104,7 +104,7 @@
                     </div>
                     <?php
                     if ($id != 0) {
-                        echo "<input type='text' name='foto' id='foto' value='$dados[foto]'>";
+                        echo "<input type='text' name='foto' id='foto' value='$dados[foto]' hidden>";
                     }
 
                     ?>

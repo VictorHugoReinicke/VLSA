@@ -16,8 +16,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 switch ($acao) {
     case 'Salvar':
-        salvar();
-        links();
+        linkurl();
         break;
     case 'Alterar':
         alterar();
@@ -27,12 +26,13 @@ switch ($acao) {
         break;
 }
 
-function tela2array()
+function linksarray()
 {
     $novo = array(
         'id' => isset($_POST['id']) ? $_POST['id'] : date("YmdHis"),
         'nome' => isset($_POST['nome']) ? $_POST['nome'] : "",
         'link' => isset($_POST['link']) ? $_POST['link'] : "",
+        'idusu' => isset($_POST['idusu']) ? $_POST['idusu'] : "",
     );
 
     if ($novo['id'] == "0") {
@@ -47,6 +47,7 @@ function array2json($array_dados, $json_dados)
     $json_dados->id = $array_dados['id'];
     $json_dados->nome = $array_dados['nome'];
     $json_dados->link = $array_dados['link'];
+    $json_dados->idusu = $array_dados['idusu'];
 
     return $json_dados;
 }
