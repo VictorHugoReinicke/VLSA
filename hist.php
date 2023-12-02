@@ -20,6 +20,7 @@ if (!isset($_SESSION["user"])) {
 }
 include "navbar.php";
 include "link_tela.php";
+include "acao_util.php";
 ?>
 
 <body>
@@ -31,12 +32,38 @@ include "link_tela.php";
                     <div class="col-10 mx-auto">
                         <div class="row justify-content-center">
                             <div class="col-4">
-                                <div class="input-group mb-3">
-
-                                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-                                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                </div>
+                                <form action="" method="post">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-text" id="btnGroupAddon"><button class="btn btn-icon" type="submit" name="acao" id="acao" value="Pesquisar"><i class="bi bi-search"></i></button></div>
+                                        <input type="text" class="form-control" name="pesquisa" id="pesquisa" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="btnGroupAddon">
+                                    </div>
+                                </form>
                             </div>
+                            <?php
+
+                            function pesquisa()
+                            {
+                                $pesquisa = isset($_POST['pesquisa']) ? $_POST['pesquisa'] : "";
+                                $dados = json_decode(file_get_contents('link.json'), true);
+                                foreach ($dados as $item) {
+                                    $itemName = $item['nome'];
+                                    $itemLink = $item['link'];
+                                    if ($_SESSION['user'] == $item['idusu'])
+                                        if ($pesquisa === $item['nome']) {
+                                            echo "<div class='col-2'>
+                                            <div class='card' style='width: 18rem;'>
+                                                <div class='card-body'>
+                                                    <h5 class='card-title'>{$itemName}</h5>
+                                                    <a href='{$itemLink}' class='card-link'>Link</a>
+                                                </div>
+                                            </div>
+                                        </div><div class='col-2'></div>";
+                                        }
+                                }
+                            }
+                                pesquisa();
+
+                            ?>
                         </div>
                     </div>
                     <?php

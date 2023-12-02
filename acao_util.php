@@ -50,7 +50,7 @@ function excluir()
  */
 function salvar()
 {
-    
+
     $json = NULL;
     $pessoa = tela2array();
     $cad = valcad();
@@ -80,8 +80,8 @@ function login()
             $_SESSION['user'] = $key->id;
             header('Location: link.php');
             break;
-         } else
-     header('location:login.php');
+        } else
+            header('location:login.php');
     }
 }
 
@@ -98,14 +98,14 @@ function fotos()
 {
     $novo = tela2array();
     $json = ler_json(ARQUIVO_JSON);
-        for ($x = 0; $x < count($json); $x++) {
-            
-            if ($json[$x]->id === $novo['id']) {
-                $json[$x]->foto = $novo['foto'];
-                echo "novo";
-                echo $json[$x]->foto;
-            }
+    for ($x = 0; $x < count($json); $x++) {
+
+        if ($json[$x]->id === $novo['id']) {
+            $json[$x]->foto = $novo['foto'];
+            echo "novo";
+            echo $json[$x]->foto;
         }
+    }
 
     salvar_json(json_encode($json), ARQUIVO_JSON);
 
@@ -114,9 +114,8 @@ function fotos()
 
 function linkurl()
 {
-    
+
     $json = NULL;
-    $link = links();
     $links = linksarray();
     $json = ler_json(ARQUIVO_JSON);
 
@@ -127,5 +126,6 @@ function linkurl()
     array_push($json, $links);
 
     salvar_json(json_encode($json), ARQUIVO_JSON);
-    header("location:".DESTINO);
+    header("location:" . DESTINO);
 }
+
