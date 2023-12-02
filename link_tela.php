@@ -1,14 +1,14 @@
 <?php
 function desenhar_tabela_link()
 {
-
-    $dados = json_decode(file_get_contents('link.json'), true);
-    $row = "";
-    $counter = 0;
-    if (isset($_SESSION['user']))
-    $links = array_filter($dados, function ($item) {
-        return $item['idusu'] == $_SESSION['user'];
-    });
+        $dados = json_decode(file_get_contents('link.json'), true);
+        $row = "";
+        $counter = 0;
+        if(isset($dados)){
+        if (isset($_SESSION['user']))
+            $links = array_filter($dados, function ($item) {
+                return $item['idusu'] == $_SESSION['user'];
+            });
         foreach ($links as $item) {
 
             $itemName = $item['nome'];
@@ -33,7 +33,9 @@ function desenhar_tabela_link()
         }
 
 
-    if ($counter > 0) {
-        echo "<div class='row mt-4'>{$row}</div>";
+        if ($counter > 0) {
+            echo "<div class='row mt-4'>{$row}</div>";
+        }
     }
+
 }

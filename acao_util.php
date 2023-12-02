@@ -114,18 +114,18 @@ function fotos()
 
 function linkurl()
 {
+    if (file_exists("link.json")) {
+        $json = NULL;
+        $links = linksarray();
+        $json = ler_json(ARQUIVO_JSON);
 
-    $json = NULL;
-    $links = linksarray();
-    $json = ler_json(ARQUIVO_JSON);
+        if ($json == NULL) {
+            $json = array();
+        }
 
-    if ($json == NULL) {
-        $json = array();
+        array_push($json, $links);
+
+        salvar_json(json_encode($json), ARQUIVO_JSON);
+        header("location:" . DESTINO);
     }
-
-    array_push($json, $links);
-
-    salvar_json(json_encode($json), ARQUIVO_JSON);
-    header("location:" . DESTINO);
 }
-

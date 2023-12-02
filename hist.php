@@ -43,14 +43,17 @@ include "acao_util.php";
 
                             function pesquisa()
                             {
-                                $pesquisa = isset($_POST['pesquisa']) ? $_POST['pesquisa'] : "";
-                                $dados = json_decode(file_get_contents('link.json'), true);
-                                foreach ($dados as $item) {
-                                    $itemName = $item['nome'];
-                                    $itemLink = $item['link'];
-                                    if ($_SESSION['user'] == $item['idusu'])
-                                        if ($pesquisa === $item['nome']) {
-                                            echo "<div class='col-2'>
+                               
+                                    $pesquisa = isset($_POST['pesquisa']) ? $_POST['pesquisa'] : "";
+                                    if(file_exists("link.json"))
+                                    $dados = json_decode(file_get_contents('link.json'), true);
+                                    if(isset($dados))
+                                    foreach ($dados as $item) {
+                                        $itemName = $item['nome'];
+                                        $itemLink = $item['link'];
+                                        if ($_SESSION['user'] == $item['idusu'])
+                                            if ($pesquisa === $item['nome']) {
+                                                echo "<div class='col-2'>
                                             <div class='card' style='width: 18rem;'>
                                                 <div class='card-body'>
                                                     <h5 class='card-title'>{$itemName}</h5>
@@ -58,16 +61,19 @@ include "acao_util.php";
                                                 </div>
                                             </div>
                                         </div><div class='col-2'></div>";
-                                        }
-                                }
+                                            }
+                                    }
+                                
                             }
+                            
                                 pesquisa();
 
                             ?>
                         </div>
                     </div>
                     <?php
-                    desenhar_tabela_link();
+                    if (file_exists("link.json"))
+                        desenhar_tabela_link();
                     ?>
                 </div>
 
