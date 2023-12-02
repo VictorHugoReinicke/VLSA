@@ -13,20 +13,29 @@
 <?php
 
 session_start();
-if (!isset($_SESSION["user"])) {        
+if (!isset($_SESSION["user"])) {
     header("Location: login.php");
 }
 ?>
+
 <body>
     <div class="header" id="header">
-        <div class="logo_header">
-            <img class="img_logo" src="img/vlsa logo.png" alt="Logo VLSA">
-        </div>
-        <div class="navigation_header">
-            <a href="link.php">Inserir Link</a>
-            <a class="active" href="hist.php">Histórico</a>
-            <a href="perfil.php">Perfil</a>
-        </div>
+        <section class="col-4 order-0">
+            <div class="row justify-content-start">
+                <div class="col-auto logo_header">
+                    <img class="img_logo" src="img/vlsa logo.png" alt="Logo VLSA">
+                </div>
+            </div>
+        </section>
+        <section class="col-3 order-1">
+            <div class="row justify-content-center">
+                <div class="col navigation_header d-flex justify-content-center">
+                    <a  href="link.php">Inserir Link</a>
+                    <a class="active" href="hist.php">Histórico</a>
+                    <a href="perfil.php">Perfil</a>
+                </div>
+            </div>
+        </section>
     </div>
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -47,31 +56,31 @@ if (!isset($_SESSION["user"])) {
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="col-4">
                             <div class="card" style="width: 18rem;">
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="col-4">
                             <div class="card" style="width: 18rem;">
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                           
-                            
-                        
+                        </div>
+
+
+
                     </div>
                     <div class="row mt-4">
                         <div class="col-4">
@@ -79,31 +88,31 @@ if (!isset($_SESSION["user"])) {
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="col-4">
                             <div class="card" style="width: 18rem;">
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="col-4">
                             <div class="card" style="width: 18rem;">
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                            
-                            
-                        
+                        </div>
+
+
+
                     </div>
                     <div class="row mt-4">
                         <div class="col-4">
@@ -111,33 +120,33 @@ if (!isset($_SESSION["user"])) {
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="col-4">
                             <div class="card" style="width: 18rem;">
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="col-4">
                             <div class="card" style="width: 18rem;">
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
-                                    
+
                                 </div>
                             </div>
-                            </div>
-                            
-                            
-                        
+                        </div>
+
+
+
                     </div>
-                    
+
             </section>
         </div>
     </div>

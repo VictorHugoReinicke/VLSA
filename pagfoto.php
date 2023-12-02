@@ -24,7 +24,7 @@
 
         <input type="file" name="foto" id="foto" accept="image/*">
         <br>
-        <input type="submit" class="btn btn-outline-primary" name="acao" id="acao" value="fotos">
+        <input type="submit" class="btn btn-outline-primary" name="acao" id="acao" value="Adicionar foto">
     </form>
 </body>
 
