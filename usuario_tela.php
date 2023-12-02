@@ -64,18 +64,17 @@ function desenhar_tabela_usuario()
     
     
     <div class='row justify-content-center'>
+    
     <form action='usuario_acao.php' method='post' enctype='multipart/form-data'>
     <div class='col-8'><img src='imgs/{$key['foto']}' alt='PERFIL' width='320px'></div>
     <div class='col-4'>
-        <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . "'>
 
-        <input type='file' name='foto' id='foto' accept='image/*'>
-        </div>
-        <div class='col-4'>
-        <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
-        </div>
-        
-    </form></div>
+    <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . ">
+
+    <input type='file' name='foto' id='foto' accept='image/*'>
+    <br>
+    <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
+</form></div>
     </section>
     ";
 
