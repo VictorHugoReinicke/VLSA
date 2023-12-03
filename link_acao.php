@@ -1,6 +1,6 @@
 <?php
 include "json_util.php";
-define("DESTINO", "link.php");
+define("DESTINO", "index.php");
 define("ARQUIVO_JSON", "link.json");
 include "acao_util.php";
 

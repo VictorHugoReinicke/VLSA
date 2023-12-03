@@ -29,7 +29,7 @@ $ativo = "Link";
     <section class="col-3 order-1">
         <div class="row justify-content-center">
             <div class="col navigation_header d-flex justify-content-center">
-                <a <?php if($ativo == "Link")echo "class='active'" ?> href="link.php">Inserir Link</a>
+                <a <?php if($ativo == "Link")echo "class='active'" ?> href="index.php">Inserir Link</a>
                 <a <?php if($ativo == "Histórico")echo "class='active'" ?> href="hist.php">Histórico</a>
                 <a <?php if($ativo == "Perfil")echo "class='active'" ?> href="perfil.php">Perfil</a>
             </div>

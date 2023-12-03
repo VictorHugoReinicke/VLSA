@@ -78,7 +78,7 @@ function login()
         if ($key->usuario === $login['usuario'] && $key->senha === $login['senha']) {
             session_start();
             $_SESSION['user'] = $key->id;
-            header('Location: link.php');
+            header('Location: index.php');
             break;
         } else
             header('location:login.php');
