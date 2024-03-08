@@ -11,8 +11,6 @@
   <title>Inserir Link</title>
 </head>
 <?php
-
-
 session_start();
 if (!isset($_SESSION["user"])) {        
     header("Location: login.php");
