@@ -26,10 +26,10 @@ elseif(!file_exists("usu.json"))
 ?>
 <body>
 
-  <div class="container-fluid">
+  <div class="container-fluid align-items-center">
     <div class="row justify-content-center ">
-      <section class="col-12 col-sm-8">
-        <form class="form-container mt-5" action="link_acao.php" method="post">
+      <section class="col-12 col-sm-8 mt-5 align-items-center">
+        <form class="form-container" action="link_acao.php" method="post">
           <h4 class="text-center mt-3">INSERIR LINK</h4>
           <div class="row justify-content-center mt-4 ">
             <div class="col-8">

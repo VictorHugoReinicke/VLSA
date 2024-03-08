@@ -1,5 +1,5 @@
 
-  
+<link rel="stylesheet" href="css/usu.css">
 <?php
 
 function desenhar_tabela_usuario()
@@ -66,15 +66,23 @@ function desenhar_tabela_usuario()
     <div class='row justify-content-center'>
     
     <form action='usuario_acao.php' method='post' enctype='multipart/form-data'>
-    <div class='col-8'><img src='imgs/{$key['foto']}' alt='PERFIL' width='320px'></div>
-    <div class='col-4'>
+    <div class='col-8'>
 
+    <label class='picture' for='foto' tabIndex='0'>
+    <span class='picture__image '><img src='imgs/{$key['foto']}' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '></span>
+  </label>
+
+    
+    </div>
+    <div class='row justify-content-end me-4 mt-2'>
+    <div class='col-6 mb-5'>
+    <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
     <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . ">
 
-    <input type='file' name='foto' id='foto' accept='image/*'>
-    <br>
-    <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
-</form></div>
+    <input type='file' name='foto' id='foto' accept='image/*' hidden>
+     </div>
+    </div>   
+</form>
     </section>
     ";
 
@@ -132,16 +140,25 @@ function desenhar_tabela_usuario()
               <section class='col-6 order-1'>
               <div class='row justify-content-center'>
                   <div class='col-8'>
+                  
+                  <label class='picture' for='foto' tabIndex='0'>
+                  <span class='picture__image'>
                   <i class='bi bi-person-plus-fill' alt='foto de perfil' style='font-size:170px'></i>
+                  </span>
+                 
+                </label>
+                
+               
+                  
                   </div>
               </div>
-              <div class=''><div class='col-6 '>
+              <div class='row justify-content-end'><div class='col-6 '>
     <form action='usuario_acao.php' method='post' enctype='multipart/form-data'>
 
         <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . ">
 
-        <input type='file' name='foto' id='foto' accept='image/*'>
-        <br>
+        <input type='file' name='foto' id='foto' accept='image/*' hidden>
+        
         <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
     </form></div>
                   </div>
@@ -152,3 +169,31 @@ function desenhar_tabela_usuario()
   }
 }
 ?>
+<script>const inputFile = document.querySelector(".foto");
+const pictureImage = document.querySelector(".picture__image");
+const pictureImageTxt = "Choose an image";
+pictureImage.innerHTML = pictureImageTxt;
+
+inputFile.addEventListener("change", function (e) {
+  const inputTarget = e.target;
+  const file = inputTarget.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.addEventListener("load", function (e) {
+      const readerTarget = e.target;
+
+      const img = document.createElement("img");
+      img.src = readerTarget.result;
+      img.classList.add("picture__img");
+
+      pictureImage.innerHTML = "";
+      pictureImage.appendChild(img);
+    });
+
+    reader.readAsDataURL(file);
+  } else {
+    pictureImage.innerHTML = pictureImageTxt;
+  }
+});</script>

@@ -15,10 +15,11 @@
 
 <body>
     <div class="header fixed-top py-2"></div>
-    <div class="container-fluid ">
-        
-        <div class="row justify-content-center">
-            <section class="col-12 colsm-6 col-md-6 d-flex align-items-center mt-4 pt-3">
+    
+    <div class="container-fluid">
+        <div class="row justify-content-center ">
+            
+            <section class="col-12 colsm-6 col-md-6 mt-5">
                 <form class="form-container" action="usuario_acao.php" method="post">
                     <h2 class="text-center pt-3">LOGIN</h2>
                     <div class="row justify-content-center pt-3">
@@ -75,8 +76,9 @@
             </section>
 
         </div>
+        
     </div>
-
+    
     <div class="header fixed-bottom py-2"></div>
 </body>
 
