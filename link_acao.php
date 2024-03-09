@@ -52,7 +52,3 @@ function array2json($array_dados, $json_dados)
     return $json_dados;
 }
 
-function links()
-{
-    $teste = shell_exec("C:\BecrowdCrawler-master\acessoinsta.py");
-}

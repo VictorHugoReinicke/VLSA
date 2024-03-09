@@ -15,8 +15,6 @@
 session_start();
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
-} elseif (!file_exists("usu.json")) {
-    header("Location: login.php");
 }
 include "navbar.php";
 include "link_tela.php";

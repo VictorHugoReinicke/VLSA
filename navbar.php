@@ -1,8 +1,6 @@
 <?php
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
-} elseif (!file_exists("usu.json")) {
-    header("Location: login.php");
 }
 
 $url = $_SERVER["REQUEST_URI"];

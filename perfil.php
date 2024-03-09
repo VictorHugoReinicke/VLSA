@@ -21,10 +21,7 @@
   if (!isset($_SESSION["user"])) {
     header("Location: login.php");
   }
-  elseif(!file_exists("usu.json"))
-  {
-    header("Location: login.php");
-  }
+
 
   include "usuario_tela.php";
   include "navbar.php";

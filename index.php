@@ -15,10 +15,7 @@ session_start();
 if (!isset($_SESSION["user"])) {        
     header("Location: login.php");
 }
-elseif(!file_exists("usu.json"))
-{
-  header("Location: login.php");
-}
+
  include "navbar.php";
 
 ?>
@@ -41,7 +38,7 @@ elseif(!file_exists("usu.json"))
               <input type="text" class="form-control" id="link" name="link" placeholder="">
             </div>
           </div>
-          <input type="text" name="idusu" id="idusus" value="<?= $_SESSION['user'] ?>" hidden>
+          <input type="text" name="idusu" id="idusu" value="<?= $_SESSION['user'] ?>" hidden>
           <div class="row mt-3">
             <div class="d-grid gap-2 col-6 mx-auto pb-4 mt-3">
               <button type="submit" class="btn btn-outline-primary" name="acao" id="acao" value="Salvar">Analisar</button>
