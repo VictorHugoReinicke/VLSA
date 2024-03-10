@@ -30,7 +30,7 @@ include "acao_util.php";
                     <div class="col-10 mx-auto">
                         <div class="row justify-content-center">
                             <div class="col-4">
-                                <form action="" method="post">
+                                <form action="" method="get">
                                     <div class="input-group mb-3">
                                         <div class="input-group-text" id="btnGroupAddon"><button class="btn btn-icon" type="submit" name="acao" id="acao" value="Pesquisar"><i class="bi bi-search"></i></button></div>
                                         <input type="text" class="form-control" name="pesquisa" id="pesquisa" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="btnGroupAddon">
@@ -41,37 +41,50 @@ include "acao_util.php";
 
                             function pesquisa()
                             {
-                               
-                                    $pesquisa = isset($_POST['pesquisa']) ? $_POST['pesquisa'] : "";
-                                    if(file_exists("link.json"))
-                                    $dados = json_decode(file_get_contents('link.json'), true);
-                                    if(isset($dados))
-                                    foreach ($dados as $item) {
-                                        $itemName = $item['nome'];
-                                        $itemLink = $item['link'];
-                                        if ($_SESSION['user'] == $item['idusu'])
-                                            if ($pesquisa === $item['nome']) {
-                                                echo "<div class='col-2'>
-                                            <div class='card' style='width: 18rem;'>
-                                                <div class='card-body'>
-                                                    <h5 class='card-title'>{$itemName}</h5>
-                                                    <a href='{$itemLink}' class='card-link'>Link</a>
-                                                </div>
-                                            </div>
-                                        </div><div class='col-2'></div>";
-                                            }
+                                $conexao  = new PDO(DSN, USUARIO, SENHA);
+                                $idUsuario = $_SESSION['user'];
+                                $sql = "SELECT * FROM postagens WHERE idUsuarios = :idUsuario AND Nome_postagens LIKE :pesquisa";
+                                $pesquisa = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : 0;
+
+                                $pesquisa = "%{$pesquisa}%";
+
+
+
+                                //executar comando
+
+                                $comando = $conexao->prepare($sql); //preparar comando
+                                $comando->bindValue(':pesquisa', $pesquisa);
+                                $comando->bindValue(':idUsuario', $idUsuario);
+
+                                $comando->execute(); //executa o comando
+                                //listar os dados
+
+                                if ($comando->rowCount() > 0) {
+                                    $lista = $comando->fetchAll();
+
+
+                                    foreach ($lista as $postagem) {
+                                        echo "<div class='col-2'>
+                                             <div class='card' style='width: 18rem;'>
+                                                 <div class='card-body'>
+                                                    <h5 class='card-title'>$postagem[Nome_postagens]</h5>
+                                                     <a href='$postagem[Link_postagens]' class='card-link'>Link</a>
+                                                 </div>
+                                           </div>
+                                         </div><div class='col-2'></div>";
                                     }
-                                
+                                }
+
+                         
                             }
-                            
-                                pesquisa();
+
+                            pesquisa();
 
                             ?>
                         </div>
                     </div>
                     <?php
-                    if (file_exists("link.json"))
-                        desenhar_tabela_link();
+                    desenhar_tabela_link();
                     ?>
                 </div>
 

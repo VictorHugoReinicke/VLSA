@@ -30,13 +30,13 @@
 
                             <label for="nome" class="form-label">Nome</label>
                             <input type="text" class="form-control inputs required" id="nome" name="nome" placeholder="" value="<?php if ($id != 0)
-                                                                                                                                    echo $dados['nome']; ?>">
+                                                                                                                                    echo $dados['Nome']; ?>">
 
                         </div>
                         <div class="col-5">
                             <label for="usuario" class="form-label">Nome de Usuário</label>
                             <input type="text" class="form-control inputs required" id="usuario" name="usuario" placeholder="" value="<?php if ($id != 0)
-                                                                                                                                            echo $dados['usuario']; ?>">
+                                                                                                                                            echo $dados['Nome_usuario']; ?>">
 
                         </div>
                     </div>
@@ -44,13 +44,13 @@
                         <div class="col-5">
                             <label for="cpf" class="form-label">CPF</label>
                             <input type="text" class="form-control inputs required" id="cpf" name="cpf" placeholder="" value="<?php if ($id != 0)
-                                                                                                                                    echo $dados['cpf']; ?>">
+                                                                                                                                    echo $dados['CPF']; ?>">
 
                         </div>
                         <div class="col-5">
                             <label for="rg" class="form-label">RG</label>
                             <input type="text" class="form-control inputs required" id="rg" name="rg" placeholder="" value="<?php if ($id != 0)
-                                                                                                                                echo $dados['rg']; ?>">
+                                                                                                                                echo $dados['RG']; ?>">
 
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="col-5">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control input-email inputs required" id="email" name="email" placeholder="" value="<?php if ($id != 0)
-                                                                                                                                                    echo $dados['email']; ?>">
+                                                                                                                                                    echo $dados['Email']; ?>">
 
                         </div>
                         <div class="col-5">
@@ -71,7 +71,7 @@
                         <div class="col-5">
                             <label for="senha" class="form-label">Senha</label>
                             <input type="password" class="form-control inputs required" id="senha" name="senha" placeholder="" value="<?php if ($id != 0)
-                                                                                                                                            echo $dados['senha']; ?>">
+                                                                                                                                            echo $dados['Senha']; ?>">
 
                         </div>
                         <div class="col-5">
@@ -104,11 +104,11 @@
                     </div>
                     <?php
                     if ($id != 0) {
-                        echo "<input type='text' name='foto' id='foto' value='$dados[foto]' hidden>";
+                        echo "<input type='text' name='foto' id='foto' value='$dados[Imagem]' hidden>";
                     }
 
                     ?>
-                    <input type="text" class="form-control inputs required" id="id" name="id" placeholder="" hidden value="<?= $id ?>">
+                    <input type="text" class="form-control inputs required" id="idUsuarios" name="idUsuarios" placeholder="" hidden value="<?= $id ?>">
                 </form>
             </section>
         </div>

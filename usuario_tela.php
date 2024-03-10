@@ -1,26 +1,39 @@
-
 <link rel="stylesheet" href="css/usu.css">
 <?php
 
 function desenhar_tabela_usuario()
 {
+  define('USUARIO', 'root');
+  define('SENHA', '');
+  define('HOST', 'localhost');
+  define('PORT', '3306');
+  define('DB', 'vlsa');
+  define('DSN', 'mysql:host=' . HOST . ';port=' . PORT . ';dbname=' . DB . ';charset=UTF8');
+  $conexao  = new PDO(DSN, USUARIO, SENHA);
+  $idUsuarios = $_SESSION['user'];
+  $sql = "SELECT * from usuarios WHERE idUsuarios = :idUsuarios ";
 
-  $dados = json_decode(file_get_contents('usu.json'), true);
+  $comando = $conexao->prepare($sql);
+  $comando->bindValue(':idUsuarios', $idUsuarios);
 
-  foreach ($dados as $key) {
-    if (isset($key['id']))
-      if ($key['id'] === $_SESSION['user'])
-        if ($key['foto'] != null)
+  // $dados = json_decode(file_get_contents('usu.json'), true);
+
+  $comando->execute();
+  if ($comando->rowCount() > 0) {
+    $lista = $comando->fetchAll();
+    foreach ($lista as $key) {
+      if (isset($key['idUsuarios']))
+        if ($key['Imagem'] != null)
 
 
           echo "<div class='row'><section class='col-6 order-0'><div class='row ms-3'>
     <div class='col-6'>
     <h6>Nome de Usuário</h6>
-    <p>{$key['usuario']}</p>
+    <p>{$key['Nome_usuario']}</p>
     </div>
     <div class='col-6'>
     <h6>Nome</h6>
-   <p>{$key['nome']}</p>
+   <p>{$key['Nome']}</p>
     </div>
     <div class='col-6'>
     </div>
@@ -28,17 +41,17 @@ function desenhar_tabela_usuario()
     <div class='row mt-3 ms-3'>
     <div class='col-6'>
     <h6>CPF</h6>
-    <p>{$key['cpf']}</p>
+    <p>{$key['CPF']}</p>
     </div>
     <div class='col-6'>
     <h6>RG</h6>
-    <p>{$key['rg']}</p>
+    <p>{$key['RG']}</p>
     </div>
     <div>
     <div class='row mt-3'>
     <div class='col-6'>
     <h6>Email</h6>
-    <p>{$key['email']}</p>
+    <p>{$key['Email']}</p>
     </div>
     </div>
 
@@ -47,7 +60,7 @@ function desenhar_tabela_usuario()
     <button type='submit' class='btn btn-outline-primary'>Adicionar Conta</button>
   </div>
   <div class='col-6'>
-  <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $key['id'] . "'>Alterar Dados</a></button>
+  <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $key['idUsuarios'] . "'>Alterar Dados</a></button>
 </div>
   </div>
   <div class='row mt-5'>
@@ -69,7 +82,7 @@ function desenhar_tabela_usuario()
     <div class='col-8'>
 
     <label class='picture' for='foto' tabIndex='0'>
-    <span class='picture__image '><img src='imgs/{$key['foto']}' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '></span>
+    <span class='picture__image '><img src='imgs/{$key['Imagem']}' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '></span>
   </label>
 
     
@@ -77,7 +90,7 @@ function desenhar_tabela_usuario()
     <div class='row justify-content-end me-4 mt-2'>
     <div class='col-6 mb-5'>
     <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
-    <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . ">
+    <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['idUsuarios'] . ">
 
     <input type='file' name='foto' id='foto' accept='image/*' hidden>
      </div>
@@ -94,11 +107,11 @@ function desenhar_tabela_usuario()
             <div class='row ms-3'>
               <div class='col-6'>
                    <h6>Nome de Usuário</h6>
-                   <p>{$key['usuario']}</p>
+                   <p>{$key['Nome_usuario']}</p>
                </div>
               <div class='col-6'>
                     <h6>Nome</h6>
-                    <p>{$key['nome']}</p>
+                    <p>{$key['Nome']}</p>
               </div>
               <div class='col-6'>
               </div>
@@ -106,17 +119,17 @@ function desenhar_tabela_usuario()
               <div class='row mt-3 ms-3'>
                 <div class='col-6'>
                     <h6>CPF</h6>
-                    <p>{$key['cpf']}</p>
+                    <p>{$key['CPF']}</p>
                 </div>
                 <div class='col-6'>
                     <h6>RG</h6>
-                    <p>{$key['rg']}</p>
+                    <p>{$key['RG']}</p>
                 </div>
                 <div>
               <div class='row mt-3'>
                   <div class='col-6'>
                   <h6>Email</h6>
-                  <p>{$key['email']}</p>
+                  <p>{$key['Email']}</p>
                   </div>
               </div>
               <div class='row mt-4'>
@@ -124,7 +137,7 @@ function desenhar_tabela_usuario()
               <button type='submit' class='btn btn-outline-primary'>Adicionar Conta</button>
             </div>
             <div class='col-6'>
-              <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $key['id'] . "'>Alterar Dados</a></button>
+              <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $key['idUsuarios'] . "'>Alterar Dados</a></button>
           </div>
             </div>
             <div class='row mt-5'>
@@ -155,7 +168,7 @@ function desenhar_tabela_usuario()
               <div class='row justify-content-end'><div class='col-6 '>
     <form action='usuario_acao.php' method='post' enctype='multipart/form-data'>
 
-        <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['id'] . ">
+        <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $key['idUsuarios'] . ">
 
         <input type='file' name='foto' id='foto' accept='image/*' hidden>
         
@@ -166,34 +179,37 @@ function desenhar_tabela_usuario()
                   </div>
               
     ";
+    }
   }
 }
 ?>
-<script>const inputFile = document.querySelector(".foto");
-const pictureImage = document.querySelector(".picture__image");
-const pictureImageTxt = "Choose an image";
-pictureImage.innerHTML = pictureImageTxt;
+<script>
+  const inputFile = document.querySelector(".foto");
+  const pictureImage = document.querySelector(".picture__image");
+  const pictureImageTxt = "Choose an image";
+  pictureImage.innerHTML = pictureImageTxt;
 
-inputFile.addEventListener("change", function (e) {
-  const inputTarget = e.target;
-  const file = inputTarget.files[0];
+  inputFile.addEventListener("change", function(e) {
+    const inputTarget = e.target;
+    const file = inputTarget.files[0];
 
-  if (file) {
-    const reader = new FileReader();
+    if (file) {
+      const reader = new FileReader();
 
-    reader.addEventListener("load", function (e) {
-      const readerTarget = e.target;
+      reader.addEventListener("load", function(e) {
+        const readerTarget = e.target;
 
-      const img = document.createElement("img");
-      img.src = readerTarget.result;
-      img.classList.add("picture__img");
+        const img = document.createElement("img");
+        img.src = readerTarget.result;
+        img.classList.add("picture__img");
 
-      pictureImage.innerHTML = "";
-      pictureImage.appendChild(img);
-    });
+        pictureImage.innerHTML = "";
+        pictureImage.appendChild(img);
+      });
 
-    reader.readAsDataURL(file);
-  } else {
-    pictureImage.innerHTML = pictureImageTxt;
-  }
-});</script>
+      reader.readAsDataURL(file);
+    } else {
+      pictureImage.innerHTML = pictureImageTxt;
+    }
+  });
+</script>

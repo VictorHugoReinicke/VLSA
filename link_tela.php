@@ -1,18 +1,32 @@
 <?php
+
 function desenhar_tabela_link()
 {
-        $dados = json_decode(file_get_contents('link.json'), true);
-        $row = "";
-        $counter = 0;
-        if(isset($dados)){
+
+    $conexao  = new PDO(DSN, USUARIO, SENHA);
+    $sql = 'SELECT * from postagens';
+    $post = $conexao->query($sql);
+
+    // $dados = json_decode(file_get_contents('link.json'), true);
+
+    $links = array();
+    if ($post->rowCount() > 0) {
+      while ($row = $post->fetch(PDO::FETCH_ASSOC)) {
+        $links[] = $row;
+      }
+    }
+    $row = "";
+    $counter = 0;
         if (isset($_SESSION['user']))
-            $links = array_filter($dados, function ($item) {
-                return $item['idusu'] == $_SESSION['user'];
+            $links = array_filter($links, function ($item) {
+                return $item['idUsuarios'] == $_SESSION['user'];
             });
+
+
         foreach ($links as $item) {
 
-            $itemName = $item['nome'];
-            $itemLink = $item['link'];
+            $itemName = $item['Nome_postagens'];
+            $itemLink = $item['Link_postagens'];
 
 
             $row .= "<div class='col-2'>
@@ -38,4 +52,3 @@ function desenhar_tabela_link()
         }
     }
 
-}
