@@ -21,19 +21,30 @@ if (!isset($_SESSION["user"])) {
 ?>
 <body>
 
-  <div class="container-fluid align-items-center">
-    <div class="row justify-content-center ">
-      <section class="col-12 col-sm-8 mt-5 align-items-center">
+  <div class="container-fluid align-items-center ">
+    <div class="row justify-content-center align-items-center ">
+      <section class="col-12 col-sm-8 mt-5 ">
         <form class="form-container" action="link_acao.php" method="post">
           <h4 class="text-center mt-3">INSERIR LINK</h4>
-          <div class="row justify-content-center mt-4 ">
-            <div class="col-8">
+          <div class="row justify-content-center mt-5 ">
+          <div class="col-5">
+              <label for="user" class="form-label">Nome de Usuário / Email do Instagram </label>
+              <input type="text" class="form-control" id="user" name="user" placeholder="">
+            </div>
+            <div class="col-5">
+              <label for="pass" class="form-label">Senha da sua Conta no Instagram</label>
+              <input type="text" class="form-control" id="pass" name="pass" placeholder="">
+            </div>
+          </div>
+          
+            <div class="row justify-content-center mt-4 ">
+            <div class="col-5">
               <label for="nome" class="form-label">Nomear postagem </label>
               <input type="text" class="form-control" id="nome" name="nome" placeholder="">
             </div>
-          </div>
-          <div class="row justify-content-center mt-4 ">
-            <div class="col-8">
+          
+          
+            <div class="col-5">
               <label for="link" class="form-label">Link da postagem </label>
               <input type="text" class="form-control" id="link" name="link" placeholder="">
             </div>
@@ -46,6 +57,7 @@ if (!isset($_SESSION["user"])) {
           </div>
         </form>
       </section>
+    </div>
     </div>
   </div>
 </body>
