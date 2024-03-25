@@ -20,10 +20,10 @@
 
 <body>
     <div class="header fixed-top py-2"></div>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
+    <div class="container-fluid align-items-center">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
             <section class="col-12 col-sm-10">
-                <form class="form-container mt-5" id="cadForm" action="usuario_acao.php" method="POST" enctype="multipart/form-data">
+                <form class="form-container" id="cadForm" action="usuario_acao.php" method="POST" enctype="multipart/form-data">
                     <h4 class="text-center mt-3">CADASTRO</h4>
                     <div class="row justify-content-center mt-4 ">
                         <div class="col-5">
@@ -113,6 +113,7 @@
             </section>
         </div>
     </div>
+    <div class="footer fixed-bottom py-2"></div>
 </body>
 
 

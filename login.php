@@ -16,10 +16,10 @@
 <body>
     <div class="header fixed-top py-2"></div>
     
-    <div class="container-fluid">
-        <div class="row justify-content-center ">
+    <div class="container-fluid align-items-center">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
             
-            <section class="col-12 colsm-6 col-md-6 mt-5">
+            <section class="col-12 colsm-6 col-md-6  ">
                 <form class="form-container" action="usuario_acao.php" method="post">
                     <h2 class="text-center pt-3">LOGIN</h2>
                     <div class="row justify-content-center pt-3">
@@ -79,7 +79,7 @@
         
     </div>
     
-    <div class="header fixed-bottom py-2"></div>
+    <div class="footer fixed-bottom py-2"></div>
 </body>
 
 </html>

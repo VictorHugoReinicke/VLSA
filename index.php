@@ -22,8 +22,8 @@ if (!isset($_SESSION["user"])) {
 <body>
 
   <div class="container-fluid align-items-center ">
-    <div class="row justify-content-center align-items-center ">
-      <section class="col-12 col-sm-8 mt-5 ">
+    <div class="row justify-content-center align-items-center " style="height: 80vh;">
+      <section class="col-12 col-sm-8  ">
         <form class="form-container" action="link_acao.php" method="post">
           <h4 class="text-center mt-3">INSERIR LINK</h4>
           <div class="row justify-content-center mt-5 ">

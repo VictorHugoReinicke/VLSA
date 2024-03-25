@@ -26,7 +26,7 @@ function desenhar_tabela_usuario()
         if ($key['Imagem'] != null)
 
 
-          echo "<div class='row'><section class='col-6 order-0'><div class='row ms-3'>
+          echo "<div class='row justify-content-center align-items-center' style='height: 100vh;'><section class='col-6 order-0'><div class='row ms-3'>
     <div class='col-6'>
     <h6>Nome de Usuário</h6>
     <p>{$key['Nome_usuario']}</p>
