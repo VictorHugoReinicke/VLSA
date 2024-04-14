@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="css/perfil.css">
+  <link rel="stylesheet" href="../css/perfil.css">
   <title>Página de Perfil</title>
 </head>
 
@@ -21,12 +21,8 @@
   if (!isset($_SESSION["user"])) {
     header("Location: login.php");
   }
-  elseif(!file_exists("usu.json"))
-  {
-    header("Location: login.php");
-  }
 
-  include "usuario_tela.php";
+  include "back.php";
   include "navbar.php";
   ?>
   <div class="container-fluid">
@@ -35,11 +31,11 @@
         <div class="form-container mt-5" style='background-color:white'>
           <h4 class="text-center mt-3 mb-5">DADOS PESSOAIS</h4>
 
-          <?= desenhar_tabela_usuario() ?>
+          <?php
 
-
-
-
+          apresentarPerfil($lista);
+  
+          ?>
 
 
 

@@ -3,12 +3,13 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 .header{
     background-color: #303030;
 }
-
+.footer{
+  background-color: #303030;
+}
 form{
     background: #fff;
 }
@@ -29,7 +30,6 @@ form{
     height: 18px;
     
   }
-  
 .row {
     flex-wrap: wrap;
     align-content: center;

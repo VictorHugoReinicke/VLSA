@@ -8,18 +8,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="../css/login.css">
 
     <title>LOGIN</title>
 </head>
 
 <body>
     <div class="header fixed-top py-2"></div>
-    <div class="container-fluid ">
-        
-        <div class="row justify-content-center">
-            <section class="col-12 colsm-6 col-md-6 d-flex align-items-center mt-4 pt-3">
-                <form class="form-container" action="usuario_acao.php" method="post">
+    
+    <div class="container-fluid align-items-center">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            
+            <section class="col-12 colsm-6 col-md-6  ">
+                <form class="form-container" action="back.php" method="post">
                     <h2 class="text-center pt-3">LOGIN</h2>
                     <div class="row justify-content-center pt-3">
                         <div class="col-8">
@@ -75,9 +76,10 @@
             </section>
 
         </div>
+        
     </div>
-
-    <div class="header fixed-bottom py-2"></div>
+    
+    <div class="footer fixed-bottom py-2"></div>
 </body>
 
 </html>

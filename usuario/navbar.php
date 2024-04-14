@@ -1,8 +1,6 @@
 <?php
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
-} elseif (!file_exists("usu.json")) {
-    header("Location: login.php");
 }
 
 $url = $_SERVER["REQUEST_URI"];
@@ -22,7 +20,7 @@ $ativo = "Link";
     <section class="col-4 order-0">
         <div class="row justify-content-start">
             <div class="col-auto logo_header">
-                <img class="img_logo" src="img/vlsa logo.png" alt="Logo VLSA">
+                <img class="img_logo" src="../img/vlsaLogo.png" alt="Logo VLSA">
             </div>
         </div>
     </section>
