@@ -12,7 +12,7 @@ elseif(strpos($url,"perfil") !== false)
 {
     $ativo = "Perfil";
 }
-else
+elseif(strpos($url,"index") !== false)
 $ativo = "Link";
 
 ?>

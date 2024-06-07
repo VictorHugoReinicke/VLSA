@@ -16,13 +16,13 @@
 <body>
 
   <?php
-
+  
   session_start();
   if (!isset($_SESSION["user"])) {
     header("Location: login.php");
   }
 
-  include "back.php";
+  include "apresenta.php";
   include "navbar.php";
   ?>
   <div class="container-fluid">
@@ -30,14 +30,13 @@
       <section class="col-12 col-sm-8">
         <div class="form-container mt-5" style='background-color:white'>
           <h4 class="text-center mt-3 mb-5">DADOS PESSOAIS</h4>
-
           <?php
 
-          apresentarPerfil($lista);
-  
+          apresentarPerfil($listaUsuario);
+
           ?>
 
-
+          <script src='js/foto.js'></script>
 
       </section>
     </div>

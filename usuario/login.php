@@ -7,20 +7,21 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
     <link rel="stylesheet" href="../css/login.css">
 
     <title>LOGIN</title>
 </head>
 
+
 <body>
     <div class="header fixed-top py-2"></div>
-    
+
     <div class="container-fluid align-items-center">
         <div class="row justify-content-center align-items-center" style="height: 100vh;">
-            
+
             <section class="col-12 colsm-6 col-md-6  ">
-                <form class="form-container" action="back.php" method="post">
+                <form class="form-container" action="back.php" method="post" id="loginForm">
                     <h2 class="text-center pt-3">LOGIN</h2>
                     <div class="row justify-content-center pt-3">
                         <div class="col-8">
@@ -42,9 +43,6 @@
                     <div class="row justify-content-center">
                         <div class="col-8">
                             <input type="password" id="senha" class="form-control" aria-describedby="passwordHelpBlock" name="senha">
-                            <div id="passwordHelpBlock" class="form-text">
-                                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                            </div>
                         </div>
                     </div>
                     <div class="row justify-content-end me-5 pe-4 pt-3" id="link">
@@ -59,13 +57,9 @@
                             <button type="submit" class="btn btn-outline-primary" name="acao" id="acao" value="login" onclick="validacao()">Entrar</button>
                         </div>
                     </div>
-                    <div class="row justidy-content-center google">
-                        <div class="col-4 mx-auto pb-4">
-                            <img src="img/btn_google_signin_light_normal_web.png" alt="">
-                        </div>
-                    </div>
 
-                    <div class="row justify-content-center" id="link">
+
+                    <div class="row justify-content-center mt-3" id="link">
                         <div class="col-5">
                             <p class="text-center">Não possui login? <a class="" href="cad.php">
                                     Cadastre-se
@@ -76,13 +70,23 @@
             </section>
 
         </div>
-        
+
     </div>
-    
+
     <div class="footer fixed-bottom py-2"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Carregar jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
+    <script src="../usuario/js/validationcad.js"></script>
+    <script src="../usuario/js/jquery.validate.min.js"></script>
+    <script src="../usuario/js/additional-methods.js"></script>
+    <script src="../usuario/js/localization/messages_pt_BR.js"></script>
+    <script src="../usuario/js/loginvalid.js"></script>
+    <?=
+    include "./backjs.php"
+    ?>
 </body>
 
 </html>
-
-<script src="validacao.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

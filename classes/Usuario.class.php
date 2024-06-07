@@ -187,7 +187,7 @@
             $comando = $conexao->prepare($sql);
             $comando->bindValue(':usuario', $usuario);
             $comando->execute();
-            $user = $comando->fetch();
+            $user = $comando->fetchAll();
 
             return $user;
         }

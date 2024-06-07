@@ -1,18 +1,18 @@
 <?php
-session_start();
+$resultado = isset($_GET['resultado']) ? $_GET['resultado'] : "";
+if ($resultado) {
+    $outputTesteS = shell_exec('python.exe ../postagem//testeS.py');
 
-$sessionData = [
-    "userId" => $_SESSION["user"],
-];
-
-$serializedData = json_encode($sessionData);
-
-$filePath = 'session_data.json';
-file_put_contents($filePath, $serializedData);
-
-// Executa o script dash.py após a execução do testeS.py
-$comando = escapeshellcmd('python dash.py');
-$cmdResult = shell_exec($comando);
-
-// Redireciona para a página desejada após a execução dos scripts Python
-header('location:../usuario/index.php');
+    if ($outputTesteS) {
+        $outputDash = shell_exec('streamlit run ../postagem//dash.py');
+        if ($outputDash) {
+            $comando = escapeshellcmd('python dash.py');
+            $cmdResult = shell_exec($comando);
+        } else {
+            echo "Erro ao executar o script Dash.";
+        }
+    } else {
+        echo "Erro ao executar o script testeS.";
+    }   
+} 
+?>

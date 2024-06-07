@@ -7,6 +7,11 @@ $conexao = Database::getInstance();
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $msg = isset($_GET['MSG']) ? $_GET['MSG'] : "";
 
+if ($id > 0) // verificará se o id é maior que 0, caso a verificação estiver correta, irá:
+{
+    $post = Postagem::Dados($id); //atribuirá esse novo objeto à um array, com a função de listar
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = isset($_POST['idpost']) ? $_POST['idpost'] : 0;
     $nomePost = isset($_POST['nome']) ? $_POST['nome'] : "";
@@ -16,6 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $idusu = isset($_POST['idusu']) ? $_POST['idusu'] : "";
     $acao = isset($_POST['acao']) ? $_POST['acao'] : 0;
 
+    if (strpos($link, '?next=%2F') === false) {
+        $link .= '?next=%2F';
+    }
     try {
         $postagem = new Postagem(
             $id,
@@ -30,43 +38,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $resultado = "";
-    switch ($acao) {
-        case 'Salvar':
-            if ($id > 0) {
-                $resultado = $postagem->alterar($conexao);
-            } else {
-                $resultado = $postagem->incluir($conexao);
-            }
-            break;
-        case 'excluir':
-            $resultado = $postagem->excluir($conexao);
-            break;
+    if ($acao == 'Salvar') {
+        $resultado = $postagem->incluir($conexao);
+    } elseif ($acao == "Alterar") {
+        $resultado = $postagem->alterar($conexao);
+        if ($resultado)
+            header('location:../usuario/hist.php');
+        exit;
     }
-
     if ($resultado) {
-        // Executa o script testeS.py
-        $outputTesteS = shell_exec('python ../postagem/testeS.py');
-        if ($outputTesteS) {
-            // Executa o script dash.py após o testeS.py
-            $outputDash = shell_exec('streamlit run ../postagem/dash.py');
-            if ($outputDash) {
-                header('Location: python.php');
-            } else {
-                echo "Erro ao executar o script Dash.";
-            }
-        } else {
-            echo "Erro ao executar o script testeS.";
-        }
+        echo "Inserção bem sucedida";
+        header("location:python.php?resultado=$resultado");
     } else {
         echo "Erro ao inserir dados!";
     }
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $busca = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : "";
-
-    if ($busca != "") {
-        $lista = Postagem::listar($busca);
-    } else {
-        $lista = Postagem::listarTodos();
+    $acao = isset($_GET['acao']) ? $_GET['acao'] : "";
+    $postagem = new Postagem($id);
+    if ($acao == "excluir" && $id > 0) {
+        $postagem->excluir($conexao);
+        header('location:../usuario/hist.php');
     }
 }
-?>

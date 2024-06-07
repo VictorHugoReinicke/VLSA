@@ -51,12 +51,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // verificará o método de requisi�
         header('Location:cad.php?MSG=ERROR:' . $e->getMessage());
     }
 
+
+
     $resultado = "";
+    $criacao = "";
+    $login = "";
     switch ($acao) {
         case 'Criar Conta':
             if ($senha == $conf_senha) {
                 $resultado = $usuario->incluir();
-            }
+                $criacao = true;
+              
+            } else
+                $criacao = false;
             break;
 
         case 'excluir':
@@ -78,117 +85,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // verificará o método de requisi�
     }
 
 
-    if ($resultado)
-        header('Location: index.php');
-    else
-        echo "erro ao inserir dados!";
+    if ($resultado) {
+        if ($criacao)
+            header('location:../usuario/cad.php?acao=contaC');
+        else
+            header('location:../usuario/perfil.php');
+    } else
+        if ($criacao == false)
+            header('location:../usuario/cad.php?acao=contaE');
 
 
 
-    if ($acao == "login") {
-        $user = Usuario::login();
-        $nome_usuario = isset($_POST['usuario']) ? $_POST['usuario'] : "";
-        $senha_login = isset($_POST['senha']) ? $_POST['senha'] : "";
-        if ($user['Nome_usuario'] != $nome_usuario || $senha_login != $user['Senha']) {
-            session_start();
-            session_destroy();
-            header('Location: login.php');
-        } else {
-            session_start();
-            $_SESSION['user'] = $user['idUsuarios'];
-            header('Location: index.php');
+        if ($acao == "login") {
+            $user = Usuario::login();
+            $nome_usuario = isset($_POST['usuario']) ? $_POST['usuario'] : "";
+            $senha_login = isset($_POST['senha']) ? $_POST['senha'] : "";
+
+            foreach ($user as $u) {
+                if ($u['Nome_usuario'] != $nome_usuario || $senha_login != $u['Senha']) {
+                    session_start();
+                    session_destroy();
+                    header('location:../usuario/login.php?acao=loginE');
+                } else {
+                    session_start();
+                    $_SESSION['user'] = $u['idUsuarios'];
+                    $sessionData = [
+                        "userId" => $_SESSION["user"], "id" => '-1'
+                    ];
+                    $serializedData = json_encode($sessionData);
+                    $filePath = '../postagem/session_data.json';
+                    file_put_contents($filePath, $serializedData);
+                    header('location:../usuario/login.php?acao=loginC');
+                }
+            }
         }
-    }
 }
-if (!isset($_SESSION['user'])) 
-    session_start();
-    $lista = Usuario::listar($_SESSION['user']);
-
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $acao = isset($_GET['acao']) ? $_GET['acao'] : "";
     if ($acao == 'logout') {
         session_destroy();
         header('location:login.php');
     }
-}
-
-function apresentarPerfil($lista)
-{
-    $fotos = Foto::ApresentaImagem($_SESSION['user']);
-    foreach ($fotos as $foto)
-        foreach ($lista as $usuario) {
-            $imagem_style = ($foto->getTemp() != null) ? 'style="width: 100%; height: auto; object-fit: cover;"' : 'style="font-size: 170px;"';
-            $btn_style = ($foto->getTemp() != null) ? 'col-6' : 'col-6 offset-3';
-
-            echo "
-                <div class='row justify-content-center align-items-center' style='height: 50vh;'>
-                    <section class='col-6 order-0'>
-                        <!-- Se a foto existir -->
-                        <div class='row ms-3'>
-                            <div class='col-6'>
-                                <h6>Nome de Usuário</h6>
-                                <p>" . $usuario->getUsuario() . "</p>
-                            </div>
-                            <div class='col-6'>
-                                <h6>Nome</h6>
-                                <p>" . $usuario->getNome() . "<p>
-                            </div>
-                        </div> 
-                        <div class='row mt-3 ms-3'>
-                            <div class='col-6'>
-                                <h6>CPF</h6>
-                                <p>" . $usuario->getCpf() . "</p>
-                            </div>
-                            <div class='col-6'>
-                                <h6>RG</h6>
-                                <p>" . $usuario->getRg() . "</p>
-                            </div>
-                        </div>
-                        <div class='row mt-3'>
-                            <div class='col-6'>
-                                <h6>Email</h6>
-                                <p>" . $usuario->getEmail() . "</p>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <div class='col-6'>
-                                <button type='submit' class='btn btn-outline-primary'>Adicionar Conta</button>
-                            </div>
-                            <div class='col-6'>
-                                <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $usuario->getId() . "'>Alterar Dados</a></button>
-                            </div>
-                        </div>
-                        <div class='row mt-5'>
-                            <div class='col-1 ms-3'>
-                                <a style=' color: #000;' href='back.php?acao=logout'><i class='bi bi-box-arrow-left'></i></a>
-                            </div>
-                            <div class='col-2'>
-                                <p>Sair</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class='col-6 order-1'>
-                        <div class='row justify-content-center'>
-                            <div class='col-8'>
-                                <label class='picture' for='foto' tabIndex='0'>
-                                    <span class='picture__image'>
-                                        <img src='../" . $foto->getTemp() . "' alt='PERFIL' $imagem_style class='img-thumbnail rounded-1 border-1 border-dark'>
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class='row justify-content-end me-4 mt-2'>
-                            <div class='$btn_style mb-5'>
-                                <form action='back.php' method='post' enctype='multipart/form-data'>
-                                    <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
-                                    <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $usuario->getId() . ">
-                                    <input type='file' name='foto' id='foto' accept='image/*' hidden>
-                                </form>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            ";
-        }
 }
