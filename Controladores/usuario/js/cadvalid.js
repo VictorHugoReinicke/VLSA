@@ -1,9 +1,9 @@
-$(function() {
+$(function () {
     $("#cadForm").validate({
         errorClass: 'is-invalid',
         validClass: 'is-valid',
         errorElement: 'div',
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
             if (element.prop('type') === 'checkbox') {
                 error.insertAfter(element.siblings('label'));
@@ -11,11 +11,11 @@ $(function() {
                 error.insertAfter(element);
             }
         },
-        highlight: function(element, errorClass, validClass) {
+        highlight: function (element, errorClass, validClass) {
             $(element).addClass(errorClass).removeClass(validClass);
             $(element).closest('.form-control').addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
             $(element).removeClass(errorClass).addClass(validClass);
             $(element).closest('.form-control').removeClass(errorClass).addClass(validClass);
         },
@@ -28,11 +28,10 @@ $(function() {
             },
             cpf: {
                 required: true,
-                cpfBR: true
+                // cpfBR: true
             },
             rg: {
                 required: true,
-                rgBR: true
             },
             email: {
                 required: true,

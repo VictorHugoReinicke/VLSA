@@ -25,7 +25,7 @@ include_once "../Controladores/postagem/backPost.php";
   <div class="container-fluid align-items-center ">
     <div class="row justify-content-center align-items-center " style="height: 80vh;">
       <section class="col-12 col-sm-8  ">
-        <form class="form-container" action="../Controladores/postagem/backPost.php" method="post">
+        <form class="form-container" action="../Controladores/postagem/backPost.php" method="post" id="indexForm">
           <h4 class="text-center mt-3">INSERIR LINK</h4>
           <div class="row justify-content-center mt-5 ">
             <div class="col-5">
@@ -67,6 +67,14 @@ include_once "../Controladores/postagem/backPost.php";
   </div>
   </div>
   <script src="../Controladores/usuario/js/validationcad.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Carregar jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
+  <script src="../Controladores/usuario/js/jquery.validate.min.js"></script>
+  <script src="../Controladores/usuario/js/additional-methods.js"></script>
+  <script src="../Controladores/usuario/js/localization/messages_pt_BR.js"></script>
+  <script src="../Controladores/usuario/js/indexvalid.js"></script>
 </body>
 
 </html>
