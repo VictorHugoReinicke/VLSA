@@ -65,7 +65,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <img src="../postagem/./imgPost/" alt="">
                             <?php
                             $colunas = 3;
                             $html = "";
@@ -100,6 +99,8 @@
                                         $html = "";
                                     }
                                 }
+                                elseif($postagem ->getIdUsu())
+                                echo "<h2>Ainda não temos nada por aqui!</h2>";
                             }
                             if ($contador > 0) {
                                 echo "<div class='row mt-4'>{$html}</div>";
