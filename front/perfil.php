@@ -36,7 +36,7 @@
 
           ?>
 
-          <script src='../Controladores/usuario/js/foto.js'></script>
+          <script src='./js/foto.js'></script>
 
       </section>
     </div>

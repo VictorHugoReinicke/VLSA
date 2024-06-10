@@ -1,9 +1,9 @@
 <?php
 //Classes
-require_once("../Servicos/classes/Usuario.class.php"); //Usuario class
-require_once("../Servicos/classes/Database.class.php"); //Database class
-require_once("../Servicos/classes/Foto.class.php"); //Foto class
-require_once("../Servicos/classes/Postagem.class.php"); //Postagem class
+require_once("../classes/Usuario.class.php"); //Usuario class
+require_once("../classes/Database.class.php"); //Database class
+require_once("../classes/Foto.class.php"); //Foto class
+require_once("../classes/Postagem.class.php"); //Postagem class
 $conexao = Database::getInstance();
 
 function apresentarPerfil($listaUsuario)
@@ -52,7 +52,7 @@ function apresentarPerfil($listaUsuario)
                 </div>
                 <div class='row mt-5'>
                 <div class='col-1 ms-3'>
-                <a style=' color: #000;' href='../Controladores/usuario/back.php?acao=logout' style='text-decoration:none'><i class='bi bi-box-arrow-left'></i></a>
+                <a style=' color: #000;' href='../usuario/back.php?acao=logout' style='text-decoration:none'><i class='bi bi-box-arrow-left'></i></a>
                 </div>
                 <div class='col-2'>
                 <p>Sair</p>
@@ -65,7 +65,7 @@ function apresentarPerfil($listaUsuario)
 
                 <div class='row justify-content-center'>
 
-                <form action='../Controladores/usuario/back.php' method='post' enctype='multipart/form-data'>
+                <form action='../usuario/back.php' method='post' enctype='multipart/form-data'>
                 <div class='col-8'>
 
                 <label class='picture' for='foto' tabIndex='0'>
@@ -128,7 +128,7 @@ function apresentarPerfil($listaUsuario)
                 </div>
                 <div class='row mt-5'>
                 <div class='col-1 ms-3'>
-                <a  style=' color: #000;' href='../Controladores/usuario/back.php?acao=logout' ><i class='bi bi-box-arrow-left'></i></a>
+                <a  style=' color: #000;' href='../usuario/back.php?acao=logout' ><i class='bi bi-box-arrow-left'></i></a>
                 </div>
                 <div class='col-2'>
                 <p>Sair</p>
@@ -152,7 +152,7 @@ function apresentarPerfil($listaUsuario)
                     </div>
                 </div>
                 <div class='row justify-content-end'><div class='col-6 '>
-                <form action='../Controladores/usuario/back.php' method='post' enctype='multipart/form-data'>
+                <form action='../usuario/back.php' method='post' enctype='multipart/form-data'>
 
                 <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $usuario->getId() . ">
 

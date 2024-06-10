@@ -21,7 +21,7 @@
         <div class="row justify-content-center align-items-center" style="height: 100vh;">
 
             <section class="col-12 colsm-6 col-md-6  ">
-                <form class="form-container" action="../Controladores/usuario/back.php" method="post" id="loginForm">
+                <form class="form-container" action="../usuario/back.php" method="post" id="loginForm">
                     <h2 class="text-center pt-3">LOGIN</h2>
                     <div class="row justify-content-center pt-3">
                         <div class="col-8">
@@ -79,13 +79,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
-    <script src="../Controladores/usuario/js/validationcad.js"></script>
-    <script src="../Controladores/usuario/js/jquery.validate.min.js"></script>
-    <script src="../Controladores/usuario/js/additional-methods.js"></script>
-    <script src=".../Controladores/usuario/js/localization/messages_pt_BR.js"></script>
-    <script src="../Controladores/usuario/js/loginvalid.js"></script>
+    <script src="../usuario/js/validationcad.js"></script>
+    <script src="../usuario/js/jquery.validate.min.js"></script>
+    <script src="../usuario/js/additional-methods.js"></script>
+    <script src=".../usuario/js/localization/messages_pt_BR.js"></script>
+    <script src="../usuario/js/loginvalid.js"></script>
     <?=
-    include "../Controladores/usuario/backjs.php"
+    include "../usuario/backjs.php"
     ?>
 </body>
 

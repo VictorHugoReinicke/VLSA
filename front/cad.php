@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./css/cad.css">
 
     <?php
-    include_once "../Controladores/usuario/back.php";
+    include_once "../usuario/back.php";
 
     ?>
 
@@ -22,7 +22,7 @@
     <div class="container-fluid align-items-center">
         <div class="row justify-content-center align-items-center" style="height: 100vh;">
             <section class="col-12 col-sm-10">
-                <form class="form-container" id="cadForm" action="../Controladores/usuario/back.php" method="post" enctype="multipart/form-data">
+                <form class="form-container" id="cadForm" action="../usuario/back.php" method="post" enctype="multipart/form-data">
                     <h4 class="text-center mt-3">CADASTRO</h4>
                     <div class="row justify-content-center mt-4">
                         <div class="col-5">
@@ -99,13 +99,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
-    <script src="../Controladores/usuario/js/jQuery-Mask/dist/jquery.mask.min.js"></script>
-    <script src="../Controladores/usuario/js/validationcad.js"></script>
-    <script src="../Controladores/usuario/js/jquery.validate.min.js"></script>
-    <script src="../Controladores/usuario/js/additional-methods.js"></script>
-    <script src="../Controladores/usuario/js/localization/messages_pt_BR.js"></script>
-    <script src="../Controladores/usuario/js/cadvalid.js"></script>
-    <?= include "../Controladores/usuario/backjs.php" ?>
+    <script src="./js/jQuery-Mask/dist/jquery.mask.min.js"></script>
+    <script src="./js/validationcad.js"></script>
+    <script src="./js/jquery.validate.min.js"></script>
+    <script src="./js/additional-methods.js"></script>
+    <script src="./js/localization/messages_pt_BR.js"></script>
+    <script src="./js/cadvalid.js"></script>
+    <?= include "../usuario/backjs.php" ?>
 
 </body>
 

@@ -10,21 +10,21 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
                     $resultado = $usuario->incluir();
                     $criacao = true;
                     if ($resultado) {
-                        header('location:../../front/cad.php?acao=contaC');
+                        header('location:../front/cad.php?acao=contaC');
                     }
                 }
             } else {
                 $criacao = false;
-                header('location:../../front/cad.php?acao=user_name');
+                header('location:../front/cad.php?acao=user_name');
             }
             break;
 
         case 'excluir':
             $resultado = $usuario->excluir();
             if ($resultado) {
-                header('location:../../front/cad.php?acao=loginC');
+                header('location:../front/cad.php?acao=loginC');
             } else {
-                header('location:../../front/cad.php?acao=loginE');
+                header('location:../front/cad.php?acao=loginE');
             }
             break;
 
@@ -32,7 +32,7 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
             if ($senha == $conf_senha) {
                 $resultado = $usuario->alterar();
                 if ($resultado) {
-                    header('location:../../front/cad.php?acao=alterado');
+                    header('location:../front/cad.php?acao=alterado');
                 }
             }
             break;
@@ -42,16 +42,18 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
                 session_start();
             }
             $resultado = $foto->incluir($_SESSION['user']);
+            if($resultado)
+            header('location:../front/perfil.php');
             break;
     }
 }
 function Login($user, $nome_usuario, $senha_login)
 {
     foreach ($user as $u) {
-        if ($u['Nome_usuario'] != $nome_usuario || $senha_login != $u['Senha']) {
+        if ($u['Nome_usuario'] != $nome_usuario || $u['Senha'] != $senha_login) {
             session_start();
             session_destroy();
-            header('location:../../front/login.php?acao=loginE');
+            header('location:../front/login.php?acao=loginE');
         } else {
             session_start();
             $_SESSION['user'] = $u['idUsuarios'];
@@ -61,7 +63,7 @@ function Login($user, $nome_usuario, $senha_login)
             $serializedData = json_encode($sessionData);
             $filePath = '../postagem/session_data.json';
             file_put_contents($filePath, $serializedData);
-            header('location:../../front/login.php?acao=loginC');
+            header('location:../front/login.php?acao=loginC');
         }
     }
 }
@@ -74,7 +76,7 @@ function AcoesPost($postagem, $acao, $conexao)
     } elseif ($acao == "Alterar") {
         $resultado = $postagem->alterar($conexao);
         if ($resultado)
-            header('location:../../front/hist.php');
+            header('location:../front/hist.php');
         exit;
     }
     if ($resultado) {

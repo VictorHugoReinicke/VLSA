@@ -1,10 +1,10 @@
 <?php
 
-require_once(__DIR__ . '/../../Servicos/classes/Postagem.class.php'); //  Postagem class
-require_once(__DIR__ . '/../../Servicos/classes/Database.class.php'); // Database class
+require_once(__DIR__ . '/../classes/Postagem.class.php'); //  Postagem class
+require_once(__DIR__ . '/../classes/Database.class.php'); // Database class
 
 $conexao = Database::getInstance();
-include(__DIR__ . '/../../Controladores/funcoesControll.php');
+include(__DIR__ . '/../funcoesControll.php');
 
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $msg = isset($_GET['MSG']) ? $_GET['MSG'] : "";
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $senha
         );
     } catch (Exception $e) {
-        header('Location:../../front/index.php?MSG=ERROR:' . $e->getMessage());
+        header('Location:../front/index.php?MSG=ERROR:' . $e->getMessage());
     }
 
     AcoesPost($postagem, $acao, $conexao);
@@ -46,6 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postagem = new Postagem($id);
     if ($acao == "excluir" && $id > 0) {
         $postagem->excluir($conexao);
-        header('location:../../front/hist.php');
+        header('location:../front/hist.php');
     }
 }

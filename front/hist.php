@@ -29,6 +29,11 @@
             });
         }
     </script>
+    <style>
+        .escondido {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,7 +46,7 @@
 
     include "navbar.php";
     include "./apresenta.php";
-    require_once("../Servicos/classes/Postagem.class.php");
+    require_once("../classes/Postagem.class.php");
     ?>
 
     <div class="container-fluid" style="margin: 0 auto;">
@@ -67,22 +72,22 @@
                             foreach ($lista as $postagem) {
                                 $imagem = $postagem->getImgPost();
                                 if ($imagem) {
-                                    $html .= "<div class='col-4'>
+                                    $html .= "<div class='col-4'  id='item-" . $postagem->getIdPost() . "'>
                                         <div class='card'>
-                                            <img src='../Controladores/postagem/" . $postagem->getImgPost() . "' alt=''>
+                                            <img src='../postagem/" . $postagem->getImgPost() . "' alt=''>
                                             <div class='card-footer d-flex justify-content-between align-items-center'>
                                                 <div>
                                                     <h5 class='card-title mt-3'>" . $postagem->getNomePost() . "</h5>
-                                                    <a href='../Controladores/postagem/post.php?acao=view&id=" . $postagem->getIdPost() . "' class='card-link'>Clique para ver a análise</a>
+                                                    <a href='../postagem/post.php?acao=view&id=" . $postagem->getIdPost() . "' class='card-link'>Clique para ver a análise</a>
                                                 </div>
                                                 <div class='dropdown'>
                                                     <button class='btn btn-outline-secondary btn-sm dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                                         <i class='bi bi-three-dots-vertical'></i>
                                                     </button>
                                                     <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-                                                        <a class='dropdown-item' href='javascript:excluirRegistro(\"../Controladores/postagem/backPost.php?acao=excluir&id=" . $postagem->getIdPost() . "\")'>Excluir</a>
+                                                        <a class='dropdown-item' href='javascript:excluirRegistro(\"../postagem/backPost.php?acao=excluir&id=" . $postagem->getIdPost() . "\")'>Excluir</a>
                                                         <a class='dropdown-item' href='./index.php?id=" . $postagem->getIdPost() . "'>Alterar Postagem</a>
-                                                        
+                                                        <a class='dropdown-item' onclick='mostrarElementos(" . $postagem->getIdPost() . ")'>Comparar</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,9 +107,14 @@
                         </div>
                     </div>
                 </div>
+                <div id='elementosComparacao' class='escondido'>
+                    <button id='btnCancelar' onclick='cancelarComparacao()'>Cancelar</button>
+                    <button id='btnComparar' onclick='compararItens()'>Comparar</button>
+                </div>
             </section>
         </div>
     </div>
 </body>
+<script src="./js/comparar.js"></script>
 
 </html>

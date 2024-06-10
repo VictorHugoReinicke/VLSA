@@ -25,7 +25,10 @@ switch ($acao) {
         $message = "Dados alterados com sucesso!";
         $redirect = "perfil.php";
         break;
-}
+    case('loginI'):
+        $message = "Erro:Usuário não encontrado";
+        $redirect = "login.php";
+    }
 
 ?>
 <?php if (isset($message) && isset($redirect)) : ?>

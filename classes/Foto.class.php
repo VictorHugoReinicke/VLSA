@@ -88,9 +88,8 @@ class Foto
                 echo 'Erro: Tipo de imagem inválido.';
                 exit;
             }
-
             $nome_unico = uniqid() . '.' . pathinfo($nome_imagem, PATHINFO_EXTENSION);
-            move_uploaded_file($temp_imagem, '../../front/imgs/' . $nome_unico);
+            move_uploaded_file($temp_imagem, '../front/imgs/' . $nome_unico);
             // Salvar o caminho da imagem no banco de dados
             $sql = "UPDATE usuarios SET Imagem = :Imagem, Nome_imagem = '$nome_imagem', tipo = '$tipo_imagem', tamanho = '$tamanho_imagem', temp = 'imgs/$nome_unico' WHERE idUsuarios = :idUsuarios";
             $comando = $conexao->prepare($sql);
