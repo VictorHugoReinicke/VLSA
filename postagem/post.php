@@ -17,7 +17,7 @@ if (isset($_GET['acao']) && $_GET['acao'] == "view" && isset($_GET['id'])) {
     $outputDash = shell_exec('streamlit run ../postagem/scripts//post.py');
 
     if ($outputDash === false) {
-        echo "An error occurred while running the analysis script.";
+        echo "Erro no script";
         exit;
     }
 }

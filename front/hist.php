@@ -65,6 +65,7 @@
                                     </div>
                                 </form>
                             </div>
+                            <img src="../postagem/./imgPost/" alt="">
                             <?php
                             $colunas = 3;
                             $html = "";

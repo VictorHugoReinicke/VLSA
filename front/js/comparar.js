@@ -76,7 +76,7 @@ function cancelarComparacao() {
 
 function compararItens() {
     if (itensSelecionados.length === 2) {
-        let url = 'seu_script.php?item1=' + itensSelecionados[0] + '&item2=' + itensSelecionados[1];
+        let url = '../postagem/backPost.php?id1=' + itensSelecionados[0] + '&id2=' + itensSelecionados[1] + '&acao=comparacao';
         window.location.href = url;
     } else {
         alert('Selecione dois itens para comparar.');
