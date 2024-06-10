@@ -2,20 +2,15 @@
 function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
 {
     $resultado = "";
-    $criacao = "";
     switch ($acao) {
         case 'Criar Conta':
             if ($cad === null) {
                 if ($senha == $conf_senha) {
                     $resultado = $usuario->incluir();
-                    $criacao = true;
                     if ($resultado) {
                         header('location:../front/cad.php?acao=contaC');
                     }
                 }
-            } else {
-                $criacao = false;
-                header('location:../front/cad.php?acao=user_name');
             }
             break;
 
@@ -42,8 +37,8 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
                 session_start();
             }
             $resultado = $foto->incluir($_SESSION['user']);
-            if($resultado)
-            header('location:../front/perfil.php');
+            if ($resultado)
+                header('location:../front/perfil.php');
             break;
     }
 }

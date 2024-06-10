@@ -79,11 +79,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
-    <script src="../usuario/js/validationcad.js"></script>
-    <script src="../usuario/js/jquery.validate.min.js"></script>
-    <script src="../usuario/js/additional-methods.js"></script>
-    <script src=".../usuario/js/localization/messages_pt_BR.js"></script>
-    <script src="../usuario/js/loginvalid.js"></script>
+    <script src="./js/validationcad.js"></script>
+    <script src="./js/jquery.validate.min.js"></script>
+    <script src="./js/additional-methods.js"></script>
+    <script src="../js/localization/messages_pt_BR.js"></script>
+    <script src="./js/loginvalid.js"></script>
     <?=
     include "../usuario/backjs.php"
     ?>

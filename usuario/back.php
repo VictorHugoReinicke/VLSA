@@ -47,12 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // verificará o método de requisi�
         header('Location:cad.php?MSG=ERROR:' . $e->getMessage());
     }
     $cad = Usuario::NomeUsuario($usuario->getUsuario());
-    if ($acao != "fotos")
-        if ($cad !== null)
+
+    if ($acao == 'Criar Conta') {
+        if ($cad === null)
             Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad);
         else
             header('location:../front/cad.php?acao=user_name');
-    else
+    }
+    if ($acao == "fotos")
         Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad);
 
     if ($acao == "login") {
