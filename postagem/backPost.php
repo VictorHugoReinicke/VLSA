@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     AcoesPost($postagem, $acao, $conexao);
+
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $busca = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : "";
     $acao = isset($_GET['acao']) ? $_GET['acao'] : "";
@@ -47,5 +48,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($acao == "excluir" && $id > 0) {
         $postagem->excluir($conexao);
         header('location:../front/hist.php');
+    }
+
+    if ($acao == "comparacao") {
+        $id_post_1 = isset($_GET['id1']) ? $_GET['id1'] : 0;
+        $id_post_2 = isset($_GET['id2']) ? $_GET['id2'] : 0;
+        $filePath = '../postagem/id_comparacao.json';
+        $jsonData = file_get_contents($filePath);
+        if ($jsonData) {
+            $sessionData = json_decode($jsonData, true);
+        } else {
+            echo "Erro ao ler o arquivo JSON: $filePath";
+            exit;
+        }
+
+        $sessionData['id1'] = $id_post_1;
+        $sessionData['id2'] = $id_post_2;
+        $updatedJsonData = json_encode($sessionData, JSON_PRETTY_PRINT);
+
+        if (file_put_contents($filePath, $updatedJsonData)) {
+            echo "JSON atualizado com sucesso.\n";
+        } else {
+            echo "Erro ao escrever no arquivo JSON: $filePath";
+            exit;
+        }
+
+        $outputDash = shell_exec('streamlit run ../postagem/scripts/comparacao.py');
+
+        if ($outputDash === false) {
+            echo "Erro no script";
+            exit;
+        }
+
+        echo $outputDash;
     }
 }

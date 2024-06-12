@@ -124,8 +124,6 @@ class Postagem
         $sql = 'INSERT INTO postagens (Nome_postagens, Link_postagens,idUsuarios,EmailInstagram,Senha) 
           VALUES (:Nome_postagens, :Link_postagens, :idUsuarios, :EmailInstagram, :Senha)';
 
-
-
         $comando = $conexao->prepare($sql);
         $comando->bindValue(':Nome_postagens', $this->Nome_postagens);
         $comando->bindValue(':Link_postagens', $this->Link_postagens);
@@ -176,7 +174,7 @@ class Postagem
 
         $lista = array();
         while ($row = $comando->fetch()) {
-            $lista[] = new Postagem($row['idPostagens'], $row['Nome_postagens'], $row['Link_postagens'], "null", "null", "null", $row['imgPost']);
+            $lista[] = new Postagem($row['idPostagens'], $row['Nome_postagens'], $row['Link_postagens'], $row['idUsuarios'], $row['EmailInstagram'], $row['Senha'], $row['imgPost']);
         }
         return $lista;
     }
@@ -192,7 +190,7 @@ class Postagem
         $comando->execute();
         $lista = array();
         while ($row = $comando->fetch()) {
-            $lista[] = new Postagem($row['idPostagens'], $row['Nome_postagens'], $row['Link_postagens'], "null", "null", "null", $row['imgPost']);
+            $lista[] = new Postagem($row['idPostagens'], $row['Nome_postagens'], $row['Link_postagens'], $row['idUsuarios'], $row['EmailInstagram'], $row['Senha'], $row['imgPost']);
         }
 
         return $lista;

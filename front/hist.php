@@ -69,6 +69,9 @@
                             $colunas = 3;
                             $html = "";
                             $contador = 0;
+                            if (count($lista) === 0) {
+                                echo "<h2>Ainda não tem nada aqui...</h2>";
+                            }
                             foreach ($lista as $postagem) {
                                 $imagem = $postagem->getImgPost();
                                 if ($imagem) {
@@ -77,7 +80,7 @@
                                             <img src='../postagem/" . $postagem->getImgPost() . "' alt=''>
                                             <div class='card-footer d-flex justify-content-between align-items-center'>
                                                 <div>
-                                                    <h5 class='card-title mt-3'>" . $postagem->getNomePost() . "</h5>
+                                                    <h5 class='card-title mt-3' id='NomePost'>" . $postagem->getNomePost() . "</h5>
                                                     <a href='../postagem/post.php?acao=view&id=" . $postagem->getIdPost() . "' class='card-link'>Clique para ver a análise</a>
                                                 </div>
                                                 <div class='dropdown'>
@@ -86,9 +89,13 @@
                                                     </button>
                                                     <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
                                                         <a class='dropdown-item' href='javascript:excluirRegistro(\"../postagem/backPost.php?acao=excluir&id=" . $postagem->getIdPost() . "\")'>Excluir</a>
-                                                        <a class='dropdown-item' href='./index.php?id=" . $postagem->getIdPost() . "'>Alterar Postagem</a>
+                                                        <a class='dropdown-item' id='" . $postagem->getIdPost() . "'>Alterar Postagem</a>
                                                         <a class='dropdown-item' onclick='mostrarElementos(" . $postagem->getIdPost() . ")'>Comparar</a>
                                                     </div>
+                                                    <input type='text' name='idusu' id='idusu' value='" . $postagem->getIdUsu() . "' hidden>
+                                                    <input type='text' name='link' id='link' value='" . $postagem->getLink() . "' hidden>
+                                                    <input type='text' name='pass' id='pass' value='" . $postagem->getSenha() . "' hidden>
+                                                    <input type='text' name='user' id='user' value='" . $postagem->getEmail() . "' hidden>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,6 +107,7 @@
                                     }
                                 }
                             }
+
                             if ($contador > 0) {
                                 echo "<div class='row mt-4'>{$html}</div>";
                             }
@@ -116,5 +124,6 @@
     </div>
 </body>
 <script src="./js/comparar.js"></script>
+<script src="./js/alterarNome.js"></script>
 
 </html>
