@@ -115,9 +115,9 @@
                         </div>
                     </div>
                 </div>
-                <div id='elementosComparacao' class='escondido fixed-bottom'>
-                    <button id='btnCancelar' class="btn btn-light" onclick='cancelarComparacao()'>Cancelar</button>
-                    <button id='btnComparar' class="btn btn-light" onclick='compararItens()'>Comparar</button>
+                <div id='elementosComparacao' class='escondido'>
+                    <button id='btnCancelar' onclick='cancelarComparacao()'>Cancelar</button>
+                    <button id='btnComparar' onclick='compararItens()'>Comparar</button>
                 </div>
             </section>
         </div>

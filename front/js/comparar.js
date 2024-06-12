@@ -14,7 +14,7 @@ function resetCheckboxes() {
         let checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = 'checkbox-' + id;
-        checkbox.className = 'checkbox-comparar form-check-input';
+        checkbox.className = 'checkbox-comparar';
         checkbox.style.display = 'none'; // Inicia escondido
         checkbox.onchange = function () { prepararComparacao(id); };
         item.appendChild(checkbox);
@@ -79,11 +79,7 @@ function compararItens() {
         let url = '../postagem/backPost.php?id1=' + itensSelecionados[0] + '&id2=' + itensSelecionados[1] + '&acao=comparacao';
         window.location.href = url;
     } else {
-        Swal.fire({
-            title: "Selecione duas postagens para comparar",
-            text: "Você deve selecionar duas postagens para fazer a comparação",
-            icon: "warning"
-          });
+        alert('Selecione dois itens para comparar.');
     }
 }
 
