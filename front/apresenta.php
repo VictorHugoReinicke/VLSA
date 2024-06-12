@@ -69,7 +69,7 @@ function apresentarPerfil($listaUsuario)
                 <div class='col-8'>
 
                 <label class='picture' for='foto' tabIndex='0'>
-                <span class='picture__image ' id='spanId'><img src='../front/" . $foto->getTemp() . "' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '></span>
+                <span class='picture__image ' id='spanId'><img src='./" . $foto->getTemp() . "' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '></span>
                 </label>
 
 
@@ -177,7 +177,6 @@ if ($busca != "") {
     if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
         $lista = Postagem::listar($busca, $user);
-        
     } else {
         session_start();
         $user = $_SESSION['user'];

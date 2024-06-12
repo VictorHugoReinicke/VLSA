@@ -35,7 +35,6 @@
           apresentarPerfil($listaUsuario);
 
           ?>
-
           <script src='./js/foto.js'></script>
 
       </section>

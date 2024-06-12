@@ -13,7 +13,11 @@
     include_once "../usuario/back.php";
 
     ?>
-
+    <style>
+        .txtData {
+            pointer-events: none;
+        }
+    </style>
     <title>CADASTRO</title>
 </head>
 
@@ -31,7 +35,7 @@
                         </div>
                         <div class="col-5">
                             <label for="usuario" class="form-label">Nome de Usuário</label>
-                            <input type="text" class="form-control inputs required" id="usuario" name="usuario" placeholder="" value="<?php if (isset($user)) echo $user->getUsuario() ?>">
+                            <input type="text" class="form-control inputs required <?php if (isset($user)) echo "txtData";?>" id="usuario" name="usuario" placeholder="" value="<?php if (isset($user)) echo $user->getUsuario() ?>" <?php if (isset($user)) echo "readonly";?>>
                         </div>
                     </div>
                     <div class="row justify-content-center mt-3">

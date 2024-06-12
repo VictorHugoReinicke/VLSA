@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     AcoesPost($postagem, $acao, $conexao);
+
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $busca = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : "";
     $acao = isset($_GET['acao']) ? $_GET['acao'] : "";
