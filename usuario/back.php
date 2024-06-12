@@ -48,15 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // verificará o método de requisi�
     }
     $cad = Usuario::NomeUsuario($usuario->getUsuario());
 
-    if ($acao == 'Criar Conta') {
+
+    if ($acao != "fotos")
         if ($cad === null)
             Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad);
         else
             header('location:../front/cad.php?acao=user_name');
-    }
-    if ($acao == "fotos")
+    else
         Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad);
-
+    
     if ($acao == "login") {
         $user = Usuario::login();
         $nome_usuario = isset($_POST['usuario']) ? $_POST['usuario'] : "";

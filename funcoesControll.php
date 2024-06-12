@@ -68,7 +68,7 @@ function AcoesPost($postagem, $acao, $conexao)
     $resultado = "";
     if ($acao == 'Salvar') {
         $resultado = $postagem->incluir($conexao);
-    } elseif ($acao == "Alterar") {
+    } elseif ($acao == "alterarNome") {
         $resultado = $postagem->alterar($conexao);
         if ($resultado)
             header('location:../front/hist.php');
