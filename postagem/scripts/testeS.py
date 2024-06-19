@@ -46,7 +46,7 @@ conexao = mysql.connector.connect(
 
 cursor = conexao.cursor()
 
-comando = f'SELECT EmailInstagram, Senha, Link_postagens, idPostagens FROM postagens WHERE idUsuarios = {userId} ORDER BY idPostagens DESC limit 1'
+comando = f'SELECT emailInstagram, senha, link_postagem, idPostagem FROM postagens WHERE idUsuario = {userId} ORDER BY idPostagem DESC limit 1'
 cursor.execute(comando)
 resultado = cursor.fetchall()
 
@@ -84,7 +84,7 @@ try:
     perfil.click()
 except:
     # Apaga os valores do banco de dados se o login falhar
-    delete_command = f'DELETE FROM postagens WHERE idPostagens = {idPostagens}'
+    delete_command = f'DELETE FROM postagens WHERE idPostagem = {idPostagens}'
     cursor.execute(delete_command)
     conexao.commit()
     print("Falha no login. Os valores correspondentes foram apagados do banco de dados.")
@@ -99,7 +99,7 @@ links_certos = [link for link in links if link.get_attribute('href') == link_cer
 if links_certos:
     links_certos[0].click()
 else:
-   delete_command = f'DELETE FROM postagens WHERE idPostagens = {idPostagens}'
+   delete_command = f'DELETE FROM postagens WHERE idPostagem = {idPostagens}'
    cursor.execute(delete_command)
    conexao.commit()
    print("Postagem não encontrada. Os valores correspondentes foram apagados do banco de dados.")
@@ -198,7 +198,7 @@ image.save(image_save_path)
 cnx = mysql.connector.connect(user='root', password='', host='localhost', database='vlsa')
 cursor = cnx.cursor()
 
-add_image = ("UPDATE postagens SET imgPost = %s WHERE idUsuarios = %s AND idPostagens = %s ")
+add_image = ("UPDATE postagens SET imgPost = %s WHERE idUsuario = %s AND idPostagem = %s ")
 
 cursor.execute(add_image, (image_save_path, userId, idPostagens))
 
@@ -216,7 +216,7 @@ def save_to_mysql(df, userid, idPostagens):
 
     # Define a query para inserir os dados
     add_data = ("INSERT INTO comentarios "
-                " (comentario, polaridade, idUsuario, idPostagens) "
+                " (comentario, polaridade, idUsuario, idPostagem) "
                 " VALUES (%s, %s, %s, %s)")
 
     # Insere cada linha de dados na tabela

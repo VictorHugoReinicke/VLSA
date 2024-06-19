@@ -22,7 +22,7 @@ imagem_postagem = carregar_imagem(img_url)
 imagem_postagem.thumbnail((550, 550))
 
 # Carregar os dados de análise
-df = pd.read_csv('./scripts/analysis_data.csv')
+df = pd.read_csv('analysis_data.csv')
 
 # Contagem de ocorrências de cada polaridade
 polaridade_counts = df['polaridade'].value_counts()

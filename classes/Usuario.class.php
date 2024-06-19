@@ -132,7 +132,7 @@
             $conexao = Database::getInstance();
 
 
-            $sql = 'INSERT INTO usuarios (Nome, Nome_usuario, Email, CPF,RG,Senha,Imagem) 
+            $sql = 'INSERT INTO usuarios (nome, nome_usuario, email, cpf,rg,senha,imagem) 
           VALUES (:Nome, :Nome_usuario, :Email, :CPF, :RG, :Senha, :Imagem)';
 
 
@@ -165,8 +165,8 @@
         {
             $conexao = Database::getInstance();
             $sql = 'UPDATE usuarios 
-                        SET Nome = :Nome, Nome_usuario = :Nome_usuario, Imagem = :Imagem, Cpf = :Cpf, Rg = :Rg, Email = :Email, Senha = :Senha
-                        WHERE idUsuarios = :id';
+                        SET nome = :Nome, nome_usuario = :Nome_usuario, imagem = :Imagem, cpf = :Cpf, rg = :Rg, email = :Email, senha = :Senha
+                        WHERE idUsuario = :id';
             $comando = $conexao->prepare($sql);
             $comando->bindValue(':id', $this->id);
             $comando->bindValue(':Nome', $this->nome);
@@ -183,7 +183,7 @@
         {
             $conexao = Database::getInstance();
             $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : "";
-            $sql = "SELECT * from usuarios WHERE Nome_usuario = :usuario ";
+            $sql = "SELECT * from usuarios WHERE nome_usuario = :usuario ";
             $comando = $conexao->prepare($sql);
             $comando->bindValue(':usuario', $usuario);
             $comando->execute();
@@ -198,14 +198,14 @@
         public static function listar($id)
         {
             $conexao = Database::getInstance();
-            $sql = "SELECT * FROM usuarios WHERE idUsuarios = :idUsuario"; // Indica que queremos selecionar todos os campos da tabela pessoa, e a consulta deve ser nessa tebela
+            $sql = "SELECT * FROM usuarios WHERE idUsuario = :idUsuario"; // Indica que queremos selecionar todos os campos da tabela pessoa, e a consulta deve ser nessa tebela
             $comando = $conexao->prepare($sql);
             $comando->bindValue(':idUsuario', $id);
             $comando->execute();
             $usuarios = array();
 
             while ($registro  = $comando->fetch()) {
-                $usuario = new Usuario($registro['idUsuarios'], $registro['Nome'], $registro['Nome_usuario'], $registro['Email'], $registro['CPF'], $registro['RG'], $registro['Senha'], $registro['Imagem']); // Um novo objeto Pessoa é criado usando os valores dos campos id, nome e telefone do registro atual.
+                $usuario = new Usuario($registro['idUsuario'], $registro['nome'], $registro['nome_usuario'], $registro['email'], $registro['cpf'], $registro['rg'], $registro['senha'], $registro['imagem']); // Um novo objeto Pessoa é criado usando os valores dos campos id, nome e telefone do registro atual.
                 array_push($usuarios, $usuario);
             }
             return $usuarios;
@@ -215,13 +215,13 @@
         public static function Dados($id)
         {
             $conexao = Database::getInstance();
-            $sql = "SELECT * FROM usuarios WHERE idUsuarios = :id";
+            $sql = "SELECT * FROM usuarios WHERE idUsuario = :id";
             $comando = $conexao->prepare($sql);
             $comando->bindValue(':id', $id);
             $comando->execute();
 
             if ($registro  = $comando->fetch()) {
-                return new Usuario($registro['idUsuarios'], $registro['Nome'], $registro['Nome_usuario'], $registro['Email'], $registro['CPF'], $registro['RG'], $registro['Senha'], $registro['Imagem']);
+                return new Usuario($registro['idUsuario'], $registro['nome'], $registro['nome_usuario'], $registro['email'], $registro['cpf'], $registro['rg'], $registro['senha'], $registro['imagem']);
             }
 
             return null;
@@ -230,7 +230,7 @@
         public static function NomeUsuario($nome)
         {
             $conexao = Database::getInstance();
-            $sql = "SELECT * FROM usuarios WHERE Nome_usuario = :nome";
+            $sql = "SELECT * FROM usuarios WHERE nome_usuario = :nome";
             $comando = $conexao->prepare($sql);
             $comando->bindValue(':nome', $nome);
             $comando->execute();

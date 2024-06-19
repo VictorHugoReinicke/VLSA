@@ -121,7 +121,7 @@ class Postagem
     public function incluir($conexao)
     {
 
-        $sql = 'INSERT INTO postagens (Nome_postagens, Link_postagens,idUsuarios,EmailInstagram,Senha) 
+        $sql = 'INSERT INTO postagens (nome_postagem, link_postagem,idUsuario,emailInstagram,senha) 
           VALUES (:Nome_postagens, :Link_postagens, :idUsuarios, :EmailInstagram, :Senha)';
 
         $comando = $conexao->prepare($sql);
@@ -137,7 +137,7 @@ class Postagem
     public function excluir($conexao)
     {
 
-        $sql = 'DELETE FROM postagens WHERE idPostagens = :id';
+        $sql = 'DELETE FROM postagens WHERE idPostagem = :id';
         $comando = $conexao->prepare($sql);
         $comando->bindValue(':id', $this->idPostagens);
         return $comando->execute();
@@ -146,7 +146,7 @@ class Postagem
 
     public function alterar($conexao)
     {
-        $sql = 'UPDATE postagens SET Nome_postagens = :Nome, Link_postagens = :Link_postagens, idUsuarios = :idUsuarios, EmailInstagram = :EmailInstagram, Senha = :Senha WHERE idPostagens = :id';
+        $sql = 'UPDATE postagens SET nome_postagem = :Nome, link_postagem = :Link_postagens, idUsuario = :idUsuarios, emailInstagram = :EmailInstagram, senha = :Senha WHERE idPostagem = :id';
         $comando = $conexao->prepare($sql);
         $comando->bindValue(':id', $this->idPostagens);
         $comando->bindValue(':Nome', $this->Nome_postagens);
@@ -160,10 +160,10 @@ class Postagem
     public static function listar($busca = "", $user = 0)
     {
         $conexao = Database::getInstance();
-        $sql = "SELECT * FROM postagens WHERE idUsuarios = :idUsuario";
+        $sql = "SELECT * FROM postagens WHERE idUsuario = :idUsuario";
 
         if ($busca != "") {
-            $sql .= " AND Nome_postagens like :busca";
+            $sql .= " AND nome_postagem like :busca";
             $busca = "%{$busca}%";
         }
         $comando = $conexao->prepare($sql);
@@ -174,7 +174,7 @@ class Postagem
 
         $lista = array();
         while ($row = $comando->fetch()) {
-            $lista[] = new Postagem($row['idPostagens'], $row['Nome_postagens'], $row['Link_postagens'], $row['idUsuarios'], $row['EmailInstagram'], $row['Senha'], $row['imgPost']);
+            $lista[] = new Postagem($row['idPostagem'], $row['nome_postagem'], $row['link_postagem'], $row['idUsuario'], $row['emailInstagram'], $row['senha'], $row['imgPost']);
         }
         return $lista;
     }
@@ -183,14 +183,14 @@ class Postagem
     {
         $conexao = Database::getInstance();
 
-        $sql = "SELECT * FROM postagens WHERE idUsuarios = :idUsuario";
+        $sql = "SELECT * FROM postagens WHERE idUsuario = :idUsuario";
 
         $comando = $conexao->prepare($sql);
         $comando->bindValue(':idUsuario', $user);
         $comando->execute();
         $lista = array();
         while ($row = $comando->fetch()) {
-            $lista[] = new Postagem($row['idPostagens'], $row['Nome_postagens'], $row['Link_postagens'], $row['idUsuarios'], $row['EmailInstagram'], $row['Senha'], $row['imgPost']);
+            $lista[] = new Postagem($row['idPostagem'], $row['nome_postagem'], $row['link_postagem'], $row['idUsuario'], $row['emailInstagram'], $row['senha'], $row['imgPost']);
         }
 
         return $lista;
@@ -200,14 +200,14 @@ class Postagem
     {
         $conexao = Database::getInstance();
 
-        $sql = "SELECT * FROM postagens WHERE idUsuarios = :idUsuario";
+        $sql = "SELECT * FROM postagens WHERE idUsuario = :idUsuario";
 
         $comando = $conexao->prepare($sql);
         $comando->bindValue(':idUsuario', $_SESSION['user']);
         $comando->execute();
         $lista = array();
         while ($row = $comando->fetch()) {
-            $lista[] = new Postagem($row['Link_postagens'], $row['EmailInstagram'], $row['Senha']);
+            $lista[] = new Postagem($row['link_postagens'], $row['emailInstagram'], $row['senha']);
         }
 
         return $lista;
@@ -216,13 +216,13 @@ class Postagem
     public static function Dados($id)
     {
         $conexao = Database::getInstance();
-        $sql = "SELECT * FROM postagens WHERE idPostagens = :id";
+        $sql = "SELECT * FROM postagens WHERE idPostagem = :id";
         $comando = $conexao->prepare($sql);
         $comando->bindValue(':id', $id);
         $comando->execute();
 
         if ($registro  = $comando->fetch()) {
-            return new Postagem($registro['idPostagens'], $registro['Nome_postagens'], $registro['Link_postagens'], $registro['idUsuarios'], $registro['EmailInstagram'], $registro['Senha'], $registro['imgPost']);
+            return new Postagem($registro['idPostagem'], $registro['nome_postagem'], $registro['link_postagem'], $registro['idUsuario'], $registro['emailInstagram'], $registro['senha'], $registro['imgPost']);
         }
 
         return null;

@@ -32,10 +32,10 @@ with open('../postagem/id_comparacao.json', 'r') as file:
 conn = conectar_mysql()
 cursor = conn.cursor(dictionary=True)
 
-cursor.execute('SELECT * FROM postagens WHERE idPostagens = %s', (id_post_1,))
+cursor.execute('SELECT * FROM postagens WHERE idPostagem = %s', (id_post_1,))
 dados_post_1 = cursor.fetchone()
 
-cursor.execute('SELECT * FROM postagens WHERE idPostagens = %s', (id_post_2,))
+cursor.execute('SELECT * FROM postagens WHERE idPostagem = %s', (id_post_2,))
 dados_post_2 = cursor.fetchone()
 
 conn.close()

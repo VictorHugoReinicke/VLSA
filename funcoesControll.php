@@ -45,13 +45,13 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
 function Login($user, $nome_usuario, $senha_login)
 {
     foreach ($user as $u) {
-        if ($u['Nome_usuario'] != $nome_usuario || $u['Senha'] != $senha_login) {
+        if ($u['nome_usuario'] != $nome_usuario || $u['senha'] != $senha_login) {
             session_start();
             session_destroy();
             header('location:../front/login.php?acao=loginE');
         } else {
             session_start();
-            $_SESSION['user'] = $u['idUsuarios'];
+            $_SESSION['user'] = $u['idUsuario'];
             $sessionData = [
                 "userId" => $_SESSION["user"], "id" => '-1'
             ];
