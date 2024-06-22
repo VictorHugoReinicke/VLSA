@@ -10,6 +10,8 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="./css/perfil.css">
+  <link rel="stylesheet" href="./css/foot.css">
+  <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
   <title>Página de Perfil</title>
 </head>
 
@@ -24,9 +26,10 @@
 
   include "./apresenta.php";
   include "navbar.php";
+  include "footer.php";
   ?>
   <div class="container-fluid">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center " style="height: 80vh;">
       <section class="col-12 col-sm-8">
         <div class="form-container mt-5" style='background-color:white'>
           <h4 class="text-center mt-3 mb-5">DADOS PESSOAIS</h4>

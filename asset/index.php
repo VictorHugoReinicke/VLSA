@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
   <link rel="stylesheet" href="./css/link.css">
+  <link rel="stylesheet" href="./css/foot.css">
+  <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
   <title>Inserir Link</title>
 </head>
 <?php
@@ -16,6 +18,7 @@ if (!isset($_SESSION["user"])) {
   header("Location: ../../front/login.php");
 }
 include "navbar.php";
+include "footer.php";
 include_once "../postagem/backPost.php";
 
 ?>

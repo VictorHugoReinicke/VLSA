@@ -11,6 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> <!-- Adicionando a biblioteca SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <link rel="stylesheet" href="./css/hist.css">
+    <link rel="stylesheet" href="./css/foot.css">
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    
     <title>Histórico</title>
     <script>
         function excluirRegistro(url) {
@@ -46,13 +49,14 @@
 
     include "navbar.php";
     include "./apresenta.php";
+    include "footer.php";
     require_once("../classes/Postagem.class.php");
     ?>
 
     <div class="container-fluid" style="margin: 0 auto;">
-        <div class="row mx-auto justify-content-center">
+        <div class="row justify-content-center">
             <section class="col-12 col-sm-12">
-                <div class="col-8 form-container mt-4" style="background-color: white;transform: translateY(-50%);transform: translateX(20%);">
+                <div class="col-8 form-container mt-4 mx-auto" style="background-color: white">
                     <div class="col-10 mx-auto">
                         <div class="row justify-content-center">
                             <div class="col-4">
@@ -89,7 +93,7 @@
                                                     </button>
                                                     <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
                                                         <a class='dropdown-item' href='javascript:excluirRegistro(\"../postagem/backPost.php?acao=excluir&id=" . $postagem->getIdPost() . "\")'>Excluir</a>
-                                                        <a class='dropdown-item' id='" . $postagem->getIdPost() . "'>Alterar Postagem</a>
+                                                        <a class='dropdown-item' id='" . $postagem->getIdPost() . "'>Renomear</a>
                                                         <a class='dropdown-item' onclick='mostrarElementos(" . $postagem->getIdPost() . ")'>Comparar</a>
                                                     </div>
                                                     <input type='text' name='idusu' id='idusu' value='" . $postagem->getIdUsu() . "' hidden>

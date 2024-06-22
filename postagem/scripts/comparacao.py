@@ -44,7 +44,7 @@ conn.close()
 # Por exemplo, você pode usar dados_post_1['url_imagem'] para obter a URL da imagem da postagem 1
 
 # Carregar os dados de análise
-df1 = pd.read_csv('./scripts/analysis_data.csv')
+df1 = pd.read_csv('analysis_data.csv')
 df2 = pd.read_csv('./scripts/analysis_data_2.csv')
 
 # Carregar imagens das postagens

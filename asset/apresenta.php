@@ -74,8 +74,8 @@ function apresentarPerfil($listaUsuario)
 
 
                 </div>
-                <div class='row justify-content-end me-4 mt-2'>
-                <div class='col-6 mb-5'>
+                <div class='row justify-content-center me-4 mt-2'>
+                <div class='col-8 mb-5'>
                 <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
                 <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $usuario->getId() . ">
 
@@ -151,7 +151,7 @@ function apresentarPerfil($listaUsuario)
                     
                     </div>
                 </div>
-                <div class='row justify-content-end'><div class='col-6 '>
+                <div class='row justify-content-center'><div class='col-6 '>
                 <form action='../usuario/back.php' method='post' enctype='multipart/form-data'>
 
                 <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $usuario->getId() . ">

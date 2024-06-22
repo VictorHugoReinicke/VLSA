@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // verificará o método de requisi�
         if ($cad === null)
             Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad);
         else
-            header('location:../front/cad.php?acao=user_name');
+            header('location:../asset/cad.php?acao=user_name');
     elseif ($acao == "fotos")
         Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad);
     elseif ($acao == 'Salvar')
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // verificará o método de requisi�
         if ($user !== null)
             Login($user, $nome_usuario, $senha_login);
         else
-            header('location:../front/login.php?acao=loginI');
+            header('location:../asset/login.php?acao=loginI');
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -74,6 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if ($acao == 'logout') {
         session_start();
         session_destroy();
-        header('location:../front/login.php');
+        header('location:../asset/login.php');
     }
 }

@@ -89,7 +89,7 @@ class Foto
                 exit;
             }
             $nome_unico = uniqid() . '.' . pathinfo($nome_imagem, PATHINFO_EXTENSION);
-            move_uploaded_file($temp_imagem, '../front/imgs/' . $nome_unico);
+            move_uploaded_file($temp_imagem, '../asset/imgs/' . $nome_unico);
             // Salvar o caminho da imagem no banco de dados
             $sql = "UPDATE usuarios SET imagem = :imagem, nome_imagem = '$nome_imagem', tipo = '$tipo_imagem', tamanho = '$tamanho_imagem', temp = 'imgs/$nome_unico' WHERE idUsuario = :idUsuario";
             $comando = $conexao->prepare($sql);
