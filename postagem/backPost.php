@@ -22,25 +22,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $link = isset($_POST['link']) ? $_POST['link'] : "";
     $idusu = isset($_POST['idusu']) ? $_POST['idusu'] : "";
     $acao = isset($_POST['acao']) ? $_POST['acao'] : 0;
-
-    if (strpos($link, '?next=%2F') === false) {
-        $link .= '?next=%2F';
+    if ($acao != "adcAcc") {
+        if (strpos($link, '?next=%2F') === false) {
+            $link .= '?next=%2F';
+        }
+        try {
+            $postagem = new Postagem(
+                $id,
+                $nomePost,
+                $link,
+                $idusu,
+                $usuario,
+                $senha
+            );
+        } catch (Exception $e) {
+            header('Location:../asset/index.php?MSG=ERROR:' . $e->getMessage());
+        }
+        AcoesPost($postagem, $acao, $conexao);
+    } else {
+        try {
+            $postagem = new Postagem(
+                $id,
+                $nomePost,
+                $link,
+                $idusu,
+                $usuario,
+                $senha
+            );
+        } catch (Exception $e) {
+            header('Location:../asset/index.php?MSG=ERROR:' . $e->getMessage());
+        }
+        AcoesPost($postagem, $acao, $conexao);
     }
-    try {
-        $postagem = new Postagem(
-            $id,
-            $nomePost,
-            $link,
-            $idusu,
-            $usuario,
-            $senha
-        );
-    } catch (Exception $e) {
-        header('Location:../asset/index.php?MSG=ERROR:' . $e->getMessage());
-    }
-
-    AcoesPost($postagem, $acao, $conexao);
-
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $busca = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : "";
     $acao = isset($_GET['acao']) ? $_GET['acao'] : "";

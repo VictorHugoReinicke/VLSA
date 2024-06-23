@@ -13,7 +13,10 @@ function apresentarPerfil($listaUsuario)
         foreach ($listaUsuario as $usuario)
             if ($usuario->getId() != null)
                 if ($foto->getTemp() != null)
-                    echo "<div class='row justify-content-center align-items-center' style='height: 50vh;'><section class='col-6 order-0'><div class='row ms-3'>
+                    echo "
+                <div id='form_de_conta' class='col-3'></div>
+                
+                    <div class='row justify-content-center align-items-center' style='height: 50vh;'><section class='col-6 order-0'><div class='row ms-3'>
                 <div class='col-6'>
                 <h6>Nome de Usuário</h6>
                 <p>" . $usuario->getUsuario() . "</p>
@@ -44,7 +47,8 @@ function apresentarPerfil($listaUsuario)
 
                 <div class='row'>
                 <div class='col-6'>
-                <button type='submit' class='btn btn-outline-primary'>Adicionar Conta</button>
+                <button type='button' class='btn btn-outline-primary' name='AdcConta' id='AdcConta'>Adicionar Conta</button>
+                
                 </div>
                 <div class='col-6'>
                 <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $usuario->getId() . "'>Alterar Dados</a></button>
@@ -74,6 +78,7 @@ function apresentarPerfil($listaUsuario)
 
 
                 </div>
+                </div>
                 <div class='row justify-content-center me-4 mt-2'>
                 <div class='col-8 mb-5'>
                 <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
@@ -87,7 +92,9 @@ function apresentarPerfil($listaUsuario)
                 ";
                 else
 
-                    echo "
+                    echo "                  
+                    <div id='form_de_conta' class='col-3'></div>
+                    <div id='blur-container'></div>
                 <div class='row'>
                 <section class='col-6 order-0'>
                 <div class='row ms-3'>
@@ -120,7 +127,8 @@ function apresentarPerfil($listaUsuario)
                 </div>
                 <div class='row mt-4'>
                 <div class='col-6'>
-                <button type='submit' class='btn btn-outline-primary'>Adicionar Conta</button>
+                <button type='button' class='btn btn-outline-primary' name='AdcConta' id='AdcConta'>Adicionar Conta</button>
+              
                 </div>
                 <div class='col-6'>
                 <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $usuario->getId() . "'>Alterar Dados</a></button>

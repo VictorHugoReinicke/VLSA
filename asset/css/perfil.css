@@ -52,3 +52,17 @@ form{
     padding: 10px;
     border-radius: 10px;
 }
+
+.blur-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(5px); /* Apply blur effect */
+    pointer-events: none; /* Disable pointer events to prevent clicks */
+  }
+
+.sweet-alert {
+    filter: blur(0)
+  }

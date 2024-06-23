@@ -66,18 +66,22 @@ function Login($user, $nome_usuario, $senha_login)
 function AcoesPost($postagem, $acao, $conexao)
 {
     $resultado = "";
-    if ($acao == 'Salvar') {
-        $resultado = $postagem->incluir($conexao);
-    } elseif ($acao == "alterarNome") {
-        $resultado = $postagem->alterar($conexao);
-        if ($resultado)
-            header('location:../asset/hist.php');
-        exit;
-    }
-    if ($resultado) {
-        echo "Inserção bem sucedida";
-        header("location:python.php?resultado=$resultado");
-    } else {
-        echo "Erro ao inserir dados!";
+    switch ($acao) {
+        case ('Salvar'):
+            $resultado = $postagem->incluir($conexao);
+            if ($resultado)
+                header("location:python.php?resultado=$resultado");
+            break;
+
+        case ('alterarNome'):
+            $resultado = $postagem->alterar($conexao);
+            if ($resultado)
+                header('location:../asset/hist.php');
+            break;
+        case ('adcAcc'):
+            $resultado = $postagem->adicionarConta($conexao);
+            if ($resultado)
+                header('location:../asset/hist.php');
+            break;
     }
 }

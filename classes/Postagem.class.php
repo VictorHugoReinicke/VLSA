@@ -227,4 +227,15 @@ class Postagem
 
         return null;
     }
+
+    public function adicionarConta($conexao)
+    {
+        $sql = 'INSERT INTO postagens (idUsuario,emailInstagram) 
+        VALUES (:idUsuario,:EmailInstagram)';
+        $comando = $conexao->prepare($sql);
+        $comando->bindValue(':idUsuario', $this->idUsuario);
+        $comando->bindValue(':EmailInstagram', $this->Email);
+
+        return $comando->execute();
+    }
 }
