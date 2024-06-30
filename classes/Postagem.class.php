@@ -179,11 +179,47 @@ class Postagem
         return $lista;
     }
 
-    public static function listarTodos($user)
+    public static function listarTodos($organizar = 0, $user)
     {
         $conexao = Database::getInstance();
 
         $sql = "SELECT * FROM postagens WHERE idUsuario = :idUsuario";
+
+        if ($organizar > 0) {
+            switch ($organizar) {
+                case 1:
+                    $sql .= " ORDER BY nome_postagem ASC";
+                    break;
+                case 2:
+                    $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
+                    COUNT(c.idComentario) AS num_comentarios
+                    FROM postagens p
+                    LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
+                    WHERE p.idUsuario = :idUsuario
+                    GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
+                    ORDER BY num_comentarios DESC";
+                    break;
+                case 3:
+                    $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
+                    SUM(CASE WHEN c.polaridade LIKE '%positivo%' THEN 1 ELSE 0 END) AS total_positivo
+                FROM postagens p
+                LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
+                WHERE p.idUsuario = :idUsuario
+                GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
+                ORDER BY total_positivo DESC";
+                    break;
+
+                case 4:
+                    $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
+                    SUM(CASE WHEN c.polaridade LIKE '%positivo%' THEN 1 ELSE 0 END) AS total_positivo
+                FROM postagens p
+                LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
+                WHERE p.idUsuario = :idUsuario
+                GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
+                ORDER BY total_positivo ASC";
+                    break;
+            }
+        }
 
         $comando = $conexao->prepare($sql);
         $comando->bindValue(':idUsuario', $user);
@@ -226,16 +262,5 @@ class Postagem
         }
 
         return null;
-    }
-
-    public function adicionarConta($conexao)
-    {
-        $sql = 'INSERT INTO postagens (idUsuario,emailInstagram) 
-        VALUES (:idUsuario,:EmailInstagram)';
-        $comando = $conexao->prepare($sql);
-        $comando->bindValue(':idUsuario', $this->idUsuario);
-        $comando->bindValue(':EmailInstagram', $this->Email);
-
-        return $comando->execute();
     }
 }

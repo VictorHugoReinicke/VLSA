@@ -28,24 +28,19 @@
   include "navbar.php";
   include "footer.php";
   ?>
-  <div id='blur-container'>
-    <div class="container-fluid">
+  <div class="container-fluid">
+    <div class="row justify-content-center align-items-center " style="height: 80vh;">
+      <section class="col-12 col-sm-8">
+        <div class="form-container mt-5" style='background-color:white'>
+          <h4 class="text-center mt-3 mb-5">DADOS PESSOAIS</h4>
+          <?php
 
-      <div class="row justify-content-center align-items-center " style="height: 80vh;">
-        <section class="col-12 col-sm-8">
-          <div class="form-container mt-5" style='background-color:white'>
-            <h4 class="text-center mt-3 mb-5">DADOS PESSOAIS</h4>
+          apresentarPerfil($listaUsuario);
 
-            <?php
+          ?>
+          <script src='./js/foto.js'></script>
 
-            apresentarPerfil($listaUsuario);
-
-            ?>
-            <script src='./js/foto.js'></script>
-            <script src='./js/AdcConta.js' defer></script>
-
-        </section>
-      </div>
+      </section>
     </div>
   </div>
 

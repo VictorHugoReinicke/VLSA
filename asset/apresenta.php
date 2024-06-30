@@ -13,10 +13,7 @@ function apresentarPerfil($listaUsuario)
         foreach ($listaUsuario as $usuario)
             if ($usuario->getId() != null)
                 if ($foto->getTemp() != null)
-                    echo "
-                <div id='form_de_conta' class='col-3'></div>
-                
-                    <div class='row justify-content-center align-items-center' style='height: 50vh;'><section class='col-6 order-0'><div class='row ms-3'>
+                    echo "<div class='row justify-content-center align-items-center' style='height: 50vh;'><section class='col-6 order-0'><div class='row ms-3'>
                 <div class='col-6'>
                 <h6>Nome de Usuário</h6>
                 <p>" . $usuario->getUsuario() . "</p>
@@ -47,8 +44,7 @@ function apresentarPerfil($listaUsuario)
 
                 <div class='row'>
                 <div class='col-6'>
-                <button type='button' class='btn btn-outline-primary' name='AdcConta' id='AdcConta'>Adicionar Conta</button>
-                
+                <button type='submit' class='btn btn-outline-primary'>Adicionar Conta</button>
                 </div>
                 <div class='col-6'>
                 <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $usuario->getId() . "'>Alterar Dados</a></button>
@@ -73,9 +69,10 @@ function apresentarPerfil($listaUsuario)
                 <div class='col-8'>
 
                 <label class='picture' for='foto' tabIndex='0'>
-                <span class='picture__image ' id='spanId'><img src='./" . $foto->getTemp() . "' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '></span>
+                <span class='picture__image ' id='spanId'>
+                <img src='./" . $foto->getTemp() . "' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '>
+                </span>
                 </label>
-
 
                 </div>
                 </div>
@@ -92,9 +89,7 @@ function apresentarPerfil($listaUsuario)
                 ";
                 else
 
-                    echo "                  
-                    <div id='form_de_conta' class='col-3'></div>
-                    <div id='blur-container'></div>
+                    echo "
                 <div class='row'>
                 <section class='col-6 order-0'>
                 <div class='row ms-3'>
@@ -127,8 +122,7 @@ function apresentarPerfil($listaUsuario)
                 </div>
                 <div class='row mt-4'>
                 <div class='col-6'>
-                <button type='button' class='btn btn-outline-primary' name='AdcConta' id='AdcConta'>Adicionar Conta</button>
-              
+                <button type='submit' class='btn btn-outline-primary'>Adicionar Conta</button>
                 </div>
                 <div class='col-6'>
                 <button type='button' class='btn btn-outline-primary'><a class='icon' style='text-decoration:none' href='cad.php?id=" . $usuario->getId() . "'>Alterar Dados</a></button>
@@ -181,6 +175,7 @@ if (isset($_SESSION['user'])) {
     $fotos = Foto::ApresentaImagem($_SESSION['user']);
 }
 $busca = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : "";
+$organizar = isset($_GET['organizar']) ? $_GET['organizar'] : 0;
 if ($busca != "") {
     if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
@@ -193,10 +188,10 @@ if ($busca != "") {
 } else {
     if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
-        $lista = Postagem::listarTodos($user);
+        $lista = Postagem::listarTodos($organizar,$user);
     } else {
         session_start();
         $user = $_SESSION['user'];
-        $lista = Postagem::listarTodos($user);
+        $lista = Postagem::listarTodos($organizar,$user);
     }
 }

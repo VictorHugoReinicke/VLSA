@@ -21,7 +21,7 @@ if (strpos($url, "hist") !== false) {
             </div>
         </div>
     </section>
-    <section class="col-7 justify-content-center order-1 ms-5">
+    <section class="col-7 justify-content-center order-1 ms-4">
         <div class="row justify-content-center">
             <div class="col navigation_header d-flex justify-content-center">
                 <a <?php if ($ativo == "Link") echo "class='active'" ?> href="index.php">Inserir Link</a>
