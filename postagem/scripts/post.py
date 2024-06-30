@@ -24,7 +24,7 @@ cnx = mysql.connector.connect(user='root', password='',
 cursor = cnx.cursor()
 
 # Consulta SQL para buscar os dados de análise
-query = f"SELECT comentario, polaridade FROM comentarios WHERE idUsuario = {userId} and idPostagens = {idPost}"
+query = f"SELECT comentario, polaridade FROM comentarios WHERE idUsuario = {userId} and idPostagem = {idPost}"
 
 # Executa a consulta SQL
 cursor.execute(query)
@@ -41,7 +41,7 @@ cnx = mysql.connector.connect(user='root', password='',
                               database='vlsa')
 cursor = cnx.cursor()
 
-query = f"SELECT Nome_postagens, imgPost FROM postagens WHERE idUsuarios = {userId} and idPostagens = {idPost}"
+query = f"SELECT nome_postagem, imgPost FROM postagens WHERE idUsuario = {userId} and idPostagem = {idPost}"
 
 # Executa a consulta SQL
 cursor.execute(query)

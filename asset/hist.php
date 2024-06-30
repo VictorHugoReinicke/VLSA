@@ -11,6 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> <!-- Adicionando a biblioteca SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <link rel="stylesheet" href="./css/hist.css">
+    <link rel="stylesheet" href="./css/foot.css">
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+
     <title>Histórico</title>
     <script>
         function excluirRegistro(url) {
@@ -46,36 +49,58 @@
 
     include "navbar.php";
     include "./apresenta.php";
+    include "footer.php";
     require_once("../classes/Postagem.class.php");
     ?>
 
     <div class="container-fluid" style="margin: 0 auto;">
-        <div class="row mx-auto justify-content-center">
+        <div class="row justify-content-center">
             <section class="col-12 col-sm-12">
-                <div class="col-8 form-container mt-4" style="background-color: white;transform: translateY(-50%);transform: translateX(20%);">
+                <div class="col-8 form-container mt-4 mx-auto" style="background-color: white">
                     <div class="col-10 mx-auto">
-                        <div class="row justify-content-center">
-                            <div class="col-4">
-                                <form action="" method="get">
+
+
+
+                        <form action="" method="get">
+                            <div class="row justify-content-between">
+                                <div class="col-5">
                                     <div class="input-group mb-3">
                                         <div class="input-group-text" id="btnGroupAddon">
                                             <button class="btn btn-icon" type="submit"><i class="bi bi-search"></i></button>
                                         </div>
                                         <input type="text" class="form-control" name="pesquisa" id="pesquisa" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="btnGroupAddon">
                                     </div>
-                                </form>
+
+                                </div>
+                                <div class="col-3 ">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Organizar
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="?organizar=0"> Ordem de postagem </a></li>
+                                            <li><a class="dropdown-item" href="?organizar=1"> A-Z </a></li>
+                                            <li><a class="dropdown-item" href="?organizar=2">Número de comentários</a></li>
+                                            <li><a class="dropdown-item" href="?organizar=3">Mais positivo</a></li>
+                                            <li><a class="dropdown-item" href="?organizar=4">Mais negativo</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
                             </div>
-                            <?php
-                            $colunas = 3;
-                            $html = "";
-                            $contador = 0;
-                            if (count($lista) === 0) {
-                                echo "<h2>Ainda não tem nada aqui...</h2>";
-                            }
-                            foreach ($lista as $postagem) {
-                                $imagem = $postagem->getImgPost();
-                                if ($imagem) {
-                                    $html .= "<div class='col-4'  id='item-" . $postagem->getIdPost() . "'>
+                        </form>
+
+                        <?php
+                        $colunas = 3;
+                        $html = "";
+                        $contador = 0;
+                        if (count($lista) === 0) {
+                            echo "<h2>Ainda não tem nada aqui...</h2>";
+                        }
+                        foreach ($lista as $postagem) {
+                            $imagem = $postagem->getImgPost();
+                            if ($imagem) {
+                                $html .= "<div class='col-4'  id='item-" . $postagem->getIdPost() . "'>
                                         <div class='card'>
                                             <img src='../postagem/" . $postagem->getImgPost() . "' alt=''>
                                             <div class='card-footer d-flex justify-content-between align-items-center'>
@@ -89,7 +114,7 @@
                                                     </button>
                                                     <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
                                                         <a class='dropdown-item' href='javascript:excluirRegistro(\"../postagem/backPost.php?acao=excluir&id=" . $postagem->getIdPost() . "\")'>Excluir</a>
-                                                        <a class='dropdown-item' id='" . $postagem->getIdPost() . "'>Alterar Postagem</a>
+                                                        <a class='dropdown-item' id='" . $postagem->getIdPost() . "'>Renomear</a>
                                                         <a class='dropdown-item' onclick='mostrarElementos(" . $postagem->getIdPost() . ")'>Comparar</a>
                                                     </div>
                                                     <input type='text' name='idusu' id='idusu' value='" . $postagem->getIdUsu() . "' hidden>
@@ -100,27 +125,27 @@
                                             </div>
                                         </div>
                                     </div>";
-                                    $contador++;
-                                    if ($contador % $colunas === 0) {
-                                        echo "<div class='row mt-4'>{$html}</div>";
-                                        $html = "";
-                                    }
+                                $contador++;
+                                if ($contador % $colunas === 0) {
+                                    echo "<div class='row mt-4'>{$html}</div>";
+                                    $html = "";
                                 }
                             }
+                        }
 
-                            if ($contador > 0) {
-                                echo "<div class='row mt-4'>{$html}</div>";
-                            }
-                            ?>
-                        </div>
+                        if ($contador > 0) {
+                            echo "<div class='row mt-4'>{$html}</div>";
+                        }
+                        ?>
                     </div>
                 </div>
-                <div id='elementosComparacao' class='escondido fixed-bottom'>
-                    <button id='btnCancelar' class="btn btn-light" onclick='cancelarComparacao()'>Cancelar</button>
-                    <button id='btnComparar' class="btn btn-light" onclick='compararItens()'>Comparar</button>
-                </div>
-            </section>
         </div>
+        <div id='elementosComparacao' class='escondido fixed-bottom'>
+            <button id='btnCancelar' class="btn btn-light" onclick='cancelarComparacao()'>Cancelar</button>
+            <button id='btnComparar' class="btn btn-light" onclick='compararItens()'>Comparar</button>
+        </div>
+        </section>
+    </div>
     </div>
 </body>
 <script src="./js/comparar.js"></script>

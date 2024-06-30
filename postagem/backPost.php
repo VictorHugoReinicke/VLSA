@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $senha
         );
     } catch (Exception $e) {
-        header('Location:../front/index.php?MSG=ERROR:' . $e->getMessage());
+        header('Location:../asset/index.php?MSG=ERROR:' . $e->getMessage());
     }
 
     AcoesPost($postagem, $acao, $conexao);
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postagem = new Postagem($id);
     if ($acao == "excluir" && $id > 0) {
         $postagem->excluir($conexao);
-        header('location:../front/hist.php');
+        header('location:../asset/hist.php');
     }
 
     if ($acao == "comparacao") {

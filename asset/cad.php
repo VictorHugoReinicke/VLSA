@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="./css/cad.css">
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
 
     <?php
     include_once "../usuario/back.php";
@@ -24,7 +25,7 @@
 <body>
     <div class="header fixed-top py-2"></div>
     <div class="container-fluid align-items-center">
-        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+        <div class="row justify-content-center align-items-center" style="height: 96vh;">
             <section class="col-12 col-sm-10">
                 <form class="form-container" id="cadForm" action="../usuario/back.php" method="post" enctype="multipart/form-data">
                     <h4 class="text-center mt-3">CADASTRO</h4>

@@ -69,13 +69,15 @@ function apresentarPerfil($listaUsuario)
                 <div class='col-8'>
 
                 <label class='picture' for='foto' tabIndex='0'>
-                <span class='picture__image ' id='spanId'><img src='./" . $foto->getTemp() . "' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '></span>
+                <span class='picture__image ' id='spanId'>
+                <img src='./" . $foto->getTemp() . "' alt='PERFIL' style='width: 300px; height: 300px; object-fit:cover ' class='img-thumbnail roudend-1 border-1 border-dark '>
+                </span>
                 </label>
 
-
                 </div>
-                <div class='row justify-content-end me-4 mt-2'>
-                <div class='col-6 mb-5'>
+                </div>
+                <div class='row justify-content-center me-4 mt-2'>
+                <div class='col-8 mb-5'>
                 <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
                 <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $usuario->getId() . ">
 
@@ -151,7 +153,7 @@ function apresentarPerfil($listaUsuario)
                     
                     </div>
                 </div>
-                <div class='row justify-content-end'><div class='col-6 '>
+                <div class='row justify-content-center'><div class='col-6 '>
                 <form action='../usuario/back.php' method='post' enctype='multipart/form-data'>
 
                 <input type='text' class='form-control inputs required' id='id' name='id' placeholder='' hidden value=" . $usuario->getId() . ">
@@ -173,6 +175,7 @@ if (isset($_SESSION['user'])) {
     $fotos = Foto::ApresentaImagem($_SESSION['user']);
 }
 $busca = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : "";
+$organizar = isset($_GET['organizar']) ? $_GET['organizar'] : 0;
 if ($busca != "") {
     if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
@@ -185,10 +188,10 @@ if ($busca != "") {
 } else {
     if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
-        $lista = Postagem::listarTodos($user);
+        $lista = Postagem::listarTodos($organizar,$user);
     } else {
         session_start();
         $user = $_SESSION['user'];
-        $lista = Postagem::listarTodos($user);
+        $lista = Postagem::listarTodos($organizar,$user);
     }
 }

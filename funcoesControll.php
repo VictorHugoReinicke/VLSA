@@ -8,7 +8,7 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
                 if ($senha == $conf_senha) {
                     $resultado = $usuario->incluir();
                     if ($resultado) {
-                        header('location:../front/cad.php?acao=contaC');
+                        header('location:../asset/cad.php?acao=contaC');
                     }
                 }
             }
@@ -17,9 +17,9 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
         case 'excluir':
             $resultado = $usuario->excluir();
             if ($resultado) {
-                header('location:../front/cad.php?acao=loginC');
+                header('location:../asset/cad.php?acao=loginC');
             } else {
-                header('location:../front/cad.php?acao=loginE');
+                header('location:../asset/cad.php?acao=loginE');
             }
             break;
 
@@ -27,7 +27,7 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
             if ($senha == $conf_senha) {
                 $resultado = $usuario->alterar();
                 if ($resultado) {
-                    header('location:../front/cad.php?acao=alterado');
+                    header('location:../asset/cad.php?acao=alterado');
                 }
             }
             break;
@@ -38,27 +38,27 @@ function Acoes($usuario, $acao, $senha, $conf_senha, $foto, $cad)
             }
             $resultado = $foto->incluir($_SESSION['user']);
             if ($resultado)
-                header('location:../front/perfil.php');
+                header('location:../asset/perfil.php');
             break;
     }
 }
 function Login($user, $nome_usuario, $senha_login)
 {
     foreach ($user as $u) {
-        if ($u['Nome_usuario'] != $nome_usuario || $u['Senha'] != $senha_login) {
+        if ($u['nome_usuario'] != $nome_usuario || $u['senha'] != $senha_login) {
             session_start();
             session_destroy();
-            header('location:../front/login.php?acao=loginE');
+            header('location:../asset/login.php?acao=loginE');
         } else {
             session_start();
-            $_SESSION['user'] = $u['idUsuarios'];
+            $_SESSION['user'] = $u['idUsuario'];
             $sessionData = [
                 "userId" => $_SESSION["user"], "id" => '-1'
             ];
             $serializedData = json_encode($sessionData);
             $filePath = '../postagem/session_data.json';
             file_put_contents($filePath, $serializedData);
-            header('location:../front/login.php?acao=loginC');
+            header('location:../asset/login.php?acao=loginC');
         }
     }
 }
@@ -71,7 +71,7 @@ function AcoesPost($postagem, $acao, $conexao)
     } elseif ($acao == "alterarNome") {
         $resultado = $postagem->alterar($conexao);
         if ($resultado)
-            header('location:../front/hist.php');
+            header('location:../asset/hist.php');
         exit;
     }
     if ($resultado) {
