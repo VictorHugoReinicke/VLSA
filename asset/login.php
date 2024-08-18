@@ -23,7 +23,7 @@
 
             <section class="col-12 colsm-6 col-md-6  ">
                 <form class="form-container" action="../usuario/back.php" method="post" id="loginForm">
-                    <h2 class="text-center pt-3">LOGIN</h2>
+                    <h1 class="text-center pt-3">LOGIN</h1>
                     <div class="row justify-content-center pt-3">
                         <div class="col-8">
                             <label for="usuario" class="form-label">Nome de Usuário</label>

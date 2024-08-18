@@ -1,10 +1,14 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hammersmith+One&family=Lilita+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-h4{
-  font-family: "Bebas Neue", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-} */
+h4  {
+  font-family: "Hammersmith One", sans-serif;
+    font-weight: 800;
+    
+}
+
+label, p, button{
+  font-family: "Montserrat", sans-serif;
+}
 
 body {
   background-color: #6C8DB0;

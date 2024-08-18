@@ -15,7 +15,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["user"])) {
-  header("Location: ../../front/login.php");
+  header("Location: ../../asset/login.php");
 }
 include "navbar.php";
 include "footer.php";

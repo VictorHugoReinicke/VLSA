@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hammersmith+One&family=Lilita+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+h4  {
+  font-family: "Hammersmith One", sans-serif;
+    font-weight: 800;
+    
+}
+
+label, p, button{
+  font-family: "Montserrat", sans-serif;
+}
+
 :root {
     --color-white: #fff;
     --color-dark: #303030;
