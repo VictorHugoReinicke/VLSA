@@ -20,6 +20,17 @@ import datetime
 import gender_guesser.detector as gender
 import os
 
+with open('session_data.json', 'r') as f:
+    serializedData = f.read()
+
+# Deserialize JSON data to Python object
+sessionData = json.loads(serializedData)
+
+userId = sessionData["userId"]
+sessionData['flag'] = "iniciando"
+with open('session_data.json', 'w') as f:
+    json.dump(sessionData, f)
+
 nltk.download('vader_lexicon')
 
 # Define o caminho da pasta
@@ -29,14 +40,9 @@ img_folder = './imgPost/'
 if not os.path.exists(img_folder):
     os.makedirs(img_folder)
 
-with open('session_data.json', 'r') as f:
-    serializedData = f.read()
 
-# Deserialize JSON data to Python object
-sessionData = json.loads(serializedData)
-
-userId = sessionData["userId"]
-
+    
+    
 conexao = mysql.connector.connect(
     host='localhost',
     user='root',
@@ -58,6 +64,8 @@ service = Service()
 
 driver = webdriver.Chrome(service=service, options=options)
  
+
+ 
 print("iniciando")
 url = 'https://www.instagram.com/'
 driver.get(url)
@@ -72,6 +80,8 @@ time.sleep(4)
 driver.find_element(By.XPATH, '//*[@id="loginForm"]/div/div[3]').click()
 time.sleep(3)
 
+
+
 botaos = driver.find_elements(By.TAG_NAME, 'button')
 for botao in botaos:
     if botao.text == 'Agora não':
@@ -82,12 +92,22 @@ try:
     wait = WebDriverWait(driver, 10)
     perfil = wait.until(EC.visibility_of_element_located((By.XPATH, "//span[text()='Perfil']")))
     perfil.click()
+    
+    sessionData['flag'] = "Acessando o perfil"
+    with open('session_data.json', 'w') as f:
+        json.dump(sessionData, f)
+    
 except:
     # Apaga os valores do banco de dados se o login falhar
     delete_command = f'DELETE FROM postagens WHERE idPostagem = {idPostagens}'
     cursor.execute(delete_command)
     conexao.commit()
     print("Falha no login. Os valores correspondentes foram apagados do banco de dados.")
+    
+    sessionData['flag'] = "Erro ao acessar perfil"
+    with open('session_data.json', 'w') as f:
+        json.dump(sessionData, f)
+    
     driver.quit()
     exit()
 time.sleep(3)
@@ -98,79 +118,55 @@ links_certos = [link for link in links if link.get_attribute('href') == link_cer
 
 if links_certos:
     links_certos[0].click()
+    sessionData['flag'] = "Postagem encontrada"
+    with open('session_data.json', 'w') as f:
+        json.dump(sessionData, f)
 else:
    delete_command = f'DELETE FROM postagens WHERE idPostagem = {idPostagens}'
    cursor.execute(delete_command)
    conexao.commit()
    print("Postagem não encontrada. Os valores correspondentes foram apagados do banco de dados.")
+   sessionData['flag'] = "Postagem não encontrada"
+   with open('session_data.json', 'w') as f:
+        json.dump(sessionData, f)
+   
    driver.quit()
    exit()
 time.sleep(4)
 
+# Extrair os comentários como texto
+comments = driver.find_elements(By.CLASS_NAME, '_a9zm')  # Lista de elementos contêineres dos comentários
+comments_text = []  # Lista para armazenar os textos dos comentários
 
-comments = driver.find_elements(By.CLASS_NAME,'_ap3a')
-all_but_last = comments[:-1]  # Get all elements except the last
-comments = [comment.text for comment in all_but_last]
-print(comments)
+for x in comments:
+    comment = x.find_element(By.CLASS_NAME, '_a9zs')  # Busca o comentário dentro de cada contêiner
+    comments_text.append(comment.text)  # Armazena o texto do comentário na lista
+    print(comment.text)  # Exibe o comentário
 
-# pega a url da imagem da postagem
+# Pegar a URL da imagem da postagem
 img_container = driver.find_element(By.CSS_SELECTOR, 'div._aagu._aato')
 img_url = img_container.find_element(By.TAG_NAME, 'img').get_attribute('src')
 
 # Escrever a URL da imagem em um arquivo img_url.txt
-with open('./scripts/img_url.txt', 'w') as f:
+with open('img_url.txt', 'w') as f:
     f.write(img_url)
 
-df = {'comments': comments}
-data = pd.DataFrame(df)
+# Criar um DataFrame usando a lista de textos de comentários
+df = pd.DataFrame({'comments': comments_text})
+print(df)
 
 sia = SentimentIntensityAnalyzer()
-
-dicionario_sentimento = {
-    "Horrível": {"traducao": "dreadful", "sentimento": -1},
-    "Péssimo": {"traducao": "terrible", "sentimento": -1},
-    "Ruim": {"traducao": "bad", "sentimento": -1},
-    "Bom": {"traducao": "good", "sentimento": 1},
-    "Ótimo": {"traducao": "excellent", "sentimento": 1},
-    "Maravilhoso": {"traducao": "wonderful", "sentimento": 1},
-    "Horroroso": {"traducao": "horrible","sentimento":-1},
-}
-
-def identificar_genero_e_introduzir_no_dicionario(palavra):
-    d = gender.Detector()
-    genero = d.get_gender(palavra)
-    tradutor = Translator(from_lang='pt-br', to_lang='en')
-    traducao = tradutor.translate(str(palavra))
-    
-    # Adicione a palavra, a tradução, o gênero e o sentimento ao dicionário
-    dicionario_sentimento[palavra] = {"traducao": traducao, "genero": genero, "sentimento": 0}
-
-def aumentar_valor_itens_dicionario():
-    for palavra in dicionario_sentimento:
-        dicionario_sentimento[palavra]["sentimento"] += 1
 
 def traduzir(comentario):
   tradutor = Translator(from_lang='pt-br', to_lang='en')
   traducao = tradutor.translate(str(comentario))
 
-  # Verifique se a palavra está no dicionário
-  if comentario in dicionario_sentimento:
-    # Use a tradução e o sentimento do dicionário
-    traducao = dicionario_sentimento[comentario]["traducao"]
-    sentimento = dicionario_sentimento[comentario]["sentimento"]
-  else:
-    # Adicione a palavra ao dicionário e obtenha o gênero
-    identificar_genero_e_introduzir_no_dicionario(comentario)
-    # Use a tradução e o sentimento do dicionário
-    traducao = dicionario_sentimento[comentario]["traducao"]
-    sentimento = dicionario_sentimento[comentario]["sentimento"]
-
-  return traducao, sentimento
+  return traducao
 
 pol = []
-for i, row in data.iterrows():
+for i, row in df.iterrows():
     text = row['comments']
-    text_t, sentimento = traduzir(text)
+    text_t= traduzir(text)
     time.sleep(2)
     pol.append(sia.polarity_scores(text_t))
     print(text_t)
@@ -184,7 +180,7 @@ for i in pol:
     else:
         polaridade.append('negativo')
 
-df2 = data.copy()
+df2 = df.copy()
 df2['polaridade'] = polaridade 
 df2.head() 
 
@@ -237,5 +233,15 @@ csv_path = os.path.join(script_dir, 'analysis_data.csv')
 df2.to_csv('analysis_data.csv', index=False)
 for row in resultado:
         email_instagram, senha, link_postagens, idPostagens = row
+
+sessionData['flag'] = "success"
+with open('session_data.json', 'w') as f:
+ json.dump(sessionData, f)
+
+time.sleep(10)
+ 
+sessionData['flag'] = "iniciando"
+with open('session_data.json', 'w') as f:
+ json.dump(sessionData, f)
 
 save_to_mysql(df2, userId, idPostagens)

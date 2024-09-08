@@ -12,6 +12,7 @@
   <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
   <title>Inserir Link</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <?php
 session_start();
 if (!isset($_SESSION["user"])) {
@@ -60,10 +61,27 @@ include_once "../postagem/backPost.php";
           <input type="text" name="idpost" id="idpost" value="<?php if (isset($post)) echo $post->getIdPost(); ?>" hidden readonly>
           <div class="row mt-3">
             <div class="d-grid gap-2 col-6 mx-auto pb-4 mt-3">
-              <button type="submit" class="btn btn-outline-primary" name="acao" id="acao" value="<?php if (isset($post)) echo "Alterar";
-                                                                                                  else echo "Salvar"; ?>">Analisar</button>
+              <button type="submit" class="btn btn-outline-primary" onclick="makeRequest()" name="acao" id="acao" value="<?php if (isset($post)) echo "Alterar";
+                                                                                                                          else echo "Salvar"; ?>">Analisar</button>
             </div>
           </div>
+
+          <div id="loader" style="display: none;">
+            <div class="d-flex justify-content-center">
+              <div class="row">
+                <h6><strong>Carregando </strong></h6>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center" style="display: none;">
+              <div class="row">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only"></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </form>
       </section>
     </div>
@@ -78,6 +96,89 @@ include_once "../postagem/backPost.php";
   <script src="./js/additional-methods.js"></script>
   <script src="./js/localization/messages_pt_BR.js"></script>
   <script src="./js/indexvalid.js"></script>
+  <script>
+    function makeRequest() {
+      fetch('../postagem/session_data.json')
+        .then(response => {
+          if (response.status === 200) {
+            response.json().then(data => {
+              successField = data.flag;
+              switch (successField) {
+                case 'success':
+                  console.log(successField);
+                  updateLoaderMessage("Carregando: Análise feita");
+
+                  setTimeout(() => {
+                    console.log("Recarregando a página...");
+                    stopLoader();
+                    location.reload();
+                  }, 5000); // Temporizador de 5 segundos
+                  break;
+
+                case 'Acessando o perfil':
+                  console.log(successField);
+                  updateLoaderMessage("Carregando: Acessando perfil");
+                  showLoader();
+                  setTimeout(makeRequest, 1000);
+                  break;
+
+                case 'Postagem encontrada':
+                  console.log(successField);
+                  updateLoaderMessage("Carregando: Postagem encontrada");
+                  showLoader();
+                  setTimeout(makeRequest, 1000);
+                  break;
+
+                default:
+                  console.log(successField);
+                  updateLoaderMessage("Carregando");
+                  showLoader();
+                  setTimeout(makeRequest, 1000);
+                  break;
+              }
+            });
+          } else {
+            updateLoaderMessage("Erro ao obter resposta do servidor");
+            setTimeout(makeRequest, 1000);
+          }
+        })
+        .catch(error => {
+          updateLoaderMessage("Carregando: Erro ao ler o arquivo");
+          console.error('Erro ao ler o arquivo:', error);
+        });
+    }
+
+    function updatePage(data) {
+      const myComponent = document.getElementById('loader');
+      myComponent.dataset.value = data.someProperty;
+    }
+
+    function showLoader() {
+      document.getElementById('loader').style.display = 'block';
+    }
+
+    function stopLoader() {
+      document.getElementById('loader').style.display = 'none';
+    }
+
+    function updateLoaderMessage(message) {
+      const loaderDiv = document.getElementById('loader');
+      loaderDiv.innerHTML = `
+    <div class="d-flex justify-content-center">
+      <div class="row">
+        <h6><strong>${message}</strong></h6>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="row">
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+    </div>
+  `;
+    }
+  </script>
 </body>
 
 </html>

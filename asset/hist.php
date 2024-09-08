@@ -106,7 +106,7 @@
                                             <div class='card-footer d-flex justify-content-between align-items-center'>
                                                 <div>
                                                     <h5 class='card-title mt-3' id='NomePost'>" . $postagem->getNomePost() . "</h5>
-                                                    <a href='../postagem/post.php?acao=view&id=" . $postagem->getIdPost() . "' class='card-link'>Clique para ver a análise</a>
+                                                    <a href='../postagem/post.php?acao=view&id=" . $postagem->getIdPost() . "' class='card-link' onclick='recarregarPag()'>Clique para ver a análise</a>
                                                 </div>
                                                 <div class='dropdown'>
                                                     <button class='btn btn-outline-secondary btn-sm dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
@@ -148,6 +148,14 @@
     </div>
     </div>
 </body>
+<script>
+    function recarregarPag() {
+        setTimeout(() => {
+            console.log("Recarregando a página...");
+            location.reload();
+        }, 2000);
+    }
+</script>
 <script src="./js/comparar.js"></script>
 <script src="./js/alterarNome.js"></script>
 

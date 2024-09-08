@@ -6,7 +6,7 @@ import pandas as pd
 import plotly.graph_objects as go
 
 # Ler a URL da imagem do arquivo
-with open("./scripts/img_url.txt", "r") as f:
+with open("img_url.txt", "r") as f:
     img_url = f.read().strip()
 
 # Função para baixar a imagem da URL
