@@ -98,7 +98,7 @@ include_once "../postagem/backPost.php";
   <script src="./js/indexvalid.js"></script>
   <script>
     function makeRequest() {
-      fetch('../postagem/session_data.json')
+      fetch('../postagem/session_data.json?nocache=' + new Date().getTime())
         .then(response => {
           if (response.status === 200) {
             response.json().then(data => {
