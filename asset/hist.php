@@ -94,9 +94,6 @@
                         $colunas = 3;
                         $html = "";
                         $contador = 0;
-                        if (count($lista) === 0) {
-                            echo "<h2>Ainda não tem nada aqui...</h2>";
-                        }
                         foreach ($lista as $postagem) {
                             $imagem = $postagem->getImgPost();
                             if ($imagem) {
@@ -115,7 +112,7 @@
                                                     <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
                                                         <a class='dropdown-item' href='javascript:excluirRegistro(\"../postagem/backPost.php?acao=excluir&id=" . $postagem->getIdPost() . "\")'>Excluir</a>
                                                         <a class='dropdown-item' id='" . $postagem->getIdPost() . "'>Renomear</a>
-                                                        <a class='dropdown-item' onclick='mostrarElementos(" . $postagem->getIdPost() . ")'>Comparar</a>
+                                                        <a class='dropdown-item' onclick='mostrarElementos(" . $postagem->getIdPost() . ");recarregarPag()'>Comparar</a>
                                                     </div>
                                                     <input type='text' name='idusu' id='idusu' value='" . $postagem->getIdUsu() . "' hidden>
                                                     <input type='text' name='link' id='link' value='" . $postagem->getLink() . "' hidden>

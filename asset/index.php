@@ -98,72 +98,75 @@ include_once "../postagem/backPost.php";
   <script src="./js/indexvalid.js"></script>
   <script>
     function makeRequest() {
-      fetch('../postagem/session_data.json?nocache=' + new Date().getTime())
-        .then(response => {
-          if (response.status === 200) {
-            response.json().then(data => {
-              successField = data.flag;
-              switch (successField) {
-                case 'success':
-                  console.log(successField);
-                  updateLoaderMessage("Carregando: Análise feita");
+      if (VoidForm()) {
+        
+        fetch('../postagem/session_data.json?nocache=' + new Date().getTime())
+          .then(response => {
+            if (response.status === 200) {
+              response.json().then(data => {
+                successField = data.flag;
+                switch (successField) {
+                  case 'success':
+                    console.log(successField);
+                    updateLoaderMessage("Carregando: Análise feita");
 
-                  setTimeout(() => {
-                    console.log("Recarregando a página...");
-                    stopLoader();
-                    location.reload();
-                  }, 5000); // Temporizador de 5 segundos
-                  break;
+                    setTimeout(() => {
+                      console.log("Recarregando a página...");
+                      stopLoader();
+                      location.reload();
+                    }, 5000);
+                    break;
 
-                case 'Acessando o perfil':
-                  console.log(successField);
-                  updateLoaderMessage("Carregando: Acessando perfil");
-                  showLoader();
-                  setTimeout(makeRequest, 1000);
-                  break;
+                  case 'Acessando o perfil':
+                    console.log(successField);
+                    updateLoaderMessage("Carregando: Acessando perfil");
+                    showLoader();
+                    setTimeout(makeRequest, 1000);
+                    break;
 
-                case 'Postagem encontrada':
-                  console.log(successField);
-                  updateLoaderMessage("Carregando: Postagem encontrada");
-                  showLoader();
-                  setTimeout(makeRequest, 1000);
-                  break;
+                  case 'Postagem encontrada':
+                    console.log(successField);
+                    updateLoaderMessage("Carregando: Postagem encontrada");
+                    showLoader();
+                    setTimeout(makeRequest, 1000);
+                    break;
 
-                default:
-                  console.log(successField);
-                  updateLoaderMessage("Carregando");
-                  showLoader();
-                  setTimeout(makeRequest, 1000);
-                  break;
-              }
-            });
-          } else {
-            updateLoaderMessage("Erro ao obter resposta do servidor");
-            setTimeout(makeRequest, 1000);
-          }
-        })
-        .catch(error => {
-          updateLoaderMessage("Carregando: Erro ao ler o arquivo");
-          console.error('Erro ao ler o arquivo:', error);
-        });
-    }
+                  default:
+                    console.log(successField);
+                    updateLoaderMessage("Carregando");
+                    showLoader();
+                    setTimeout(makeRequest, 1000);
+                    break;
+                }
+              });
+            } else {
+              updateLoaderMessage("Erro ao obter resposta do servidor");
+              setTimeout(makeRequest, 1000);
+            }
+          })
+          .catch(error => {
+            updateLoaderMessage("Carregando: Erro ao ler o arquivo");
+            console.error('Erro ao ler o arquivo:', error);
+          });
+      }
 
-    function updatePage(data) {
-      const myComponent = document.getElementById('loader');
-      myComponent.dataset.value = data.someProperty;
-    }
+      function updatePage(data) {
+        const myComponent = document.getElementById('loader');
+        myComponent.dataset.value = data.someProperty;
+      }
 
-    function showLoader() {
-      document.getElementById('loader').style.display = 'block';
-    }
+      function showLoader() {
+        document.getElementById('loader').style.display = 'block';
+        desabilitarBtt();
+      }
 
-    function stopLoader() {
-      document.getElementById('loader').style.display = 'none';
-    }
+      function stopLoader() {
+        document.getElementById('loader').style.display = 'none';
+      }
 
-    function updateLoaderMessage(message) {
-      const loaderDiv = document.getElementById('loader');
-      loaderDiv.innerHTML = `
+      function updateLoaderMessage(message) {
+        const loaderDiv = document.getElementById('loader');
+        loaderDiv.innerHTML = `
     <div class="d-flex justify-content-center">
       <div class="row">
         <h6><strong>${message}</strong></h6>
@@ -177,6 +180,42 @@ include_once "../postagem/backPost.php";
       </div>
     </div>
   `;
+      }
+    }
+
+    function desabilitarBtt() {
+      const user = document.getElementById('user');
+      const pass = document.getElementById('pass');
+      const nome = document.getElementById('nome');
+      const link = document.getElementById('link');
+      const bt1 = document.getElementById('acao');
+      if (bt1) {
+        bt1.disabled = true;
+        user.disabled = true;
+        pass.disabled = true;
+        nome.disabled = true;
+        link.disabled = true;
+      }
+    }
+
+    function VoidForm() {
+      const user = document.getElementById('user');
+      const pass = document.getElementById('pass');
+      const nome = document.getElementById('nome');
+      const link = document.getElementById('link');
+
+      if (!user.value.trim())
+        return false;
+      else if (!pass.value.trim())
+        return false;
+      else if (!nome.value.trim())
+        return false;
+      else if (!link.value.trim())
+        return false;
+
+      else
+        return true;
+
     }
   </script>
 </body>

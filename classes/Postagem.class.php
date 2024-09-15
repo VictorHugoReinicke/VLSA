@@ -118,62 +118,65 @@ class Postagem
         return $this->imgPost;
     }
 
-    public function incluir($conexao)
+    public function incluir()
     {
 
         $sql = 'INSERT INTO postagens (nome_postagem, link_postagem,idUsuario,emailInstagram,senha) 
           VALUES (:Nome_postagens, :Link_postagens, :idUsuarios, :EmailInstagram, :Senha)';
 
-        $comando = $conexao->prepare($sql);
-        $comando->bindValue(':Nome_postagens', $this->Nome_postagens);
-        $comando->bindValue(':Link_postagens', $this->Link_postagens);
-        $comando->bindValue(':idUsuarios', $this->idUsuario);
-        $comando->bindValue(':EmailInstagram', $this->Email);
-        $comando->bindValue(':Senha', $this->Senha);
+        $parametros = [
+            ':Nome_postagens' =>  $this->getNomePost(),
+            ':Link_postagens' => $this->getLink(),
+            ':idUsuarios' => $this->getIdUsu(),
+            ':EmailInstagram' => $this->getEmail(),
+            ':Senha' => $this->getSenha()
+        ];
 
-        return $comando->execute();
+        Database::executar($sql, $parametros);
+
+        return Database::$lastId;
     }
 
-    public function excluir($conexao)
+    public function excluir()
     {
-
+        $conexao = Database::getInstance();
         $sql = 'DELETE FROM postagens WHERE idPostagem = :id';
         $comando = $conexao->prepare($sql);
-        $comando->bindValue(':id', $this->idPostagens);
+        $comando->bindValue(':id', $this->getIdPost());
         return $comando->execute();
     }
 
 
-    public function alterar($conexao)
+    public function alterar()
     {
         $sql = 'UPDATE postagens SET nome_postagem = :Nome, link_postagem = :Link_postagens, idUsuario = :idUsuarios, emailInstagram = :EmailInstagram, senha = :Senha WHERE idPostagem = :id';
-        $comando = $conexao->prepare($sql);
-        $comando->bindValue(':id', $this->idPostagens);
-        $comando->bindValue(':Nome', $this->Nome_postagens);
-        $comando->bindValue(':Link_postagens', $this->Link_postagens);
-        $comando->bindValue(':idUsuarios', $this->idUsuario);
-        $comando->bindValue(':EmailInstagram', $this->Email);
-        $comando->bindValue(':Senha', $this->Senha);
-        return $comando->execute();
+
+        $parametros = [
+            ':id' => $this->getIdPost(),
+            ':Nome' =>  $this->getNomePost(),
+            ':Link_postagens' => $this->getLink(),
+            ':idUsuarios' => $this->getIdUsu(),
+            ':EmailInstagram' => $this->getEmail(),
+            ':Senha' => $this->getSenha()
+        ];
+
+        return Database::executar($sql, $parametros);
     }
 
     public static function listar($busca = "", $user = 0)
     {
-        $conexao = Database::getInstance();
         $sql = "SELECT * FROM postagens WHERE idUsuario = :idUsuario";
 
+        $parametros = [':idUsuario' => $user];
         if ($busca != "") {
-            $sql .= " AND nome_postagem like :busca";
-            $busca = "%{$busca}%";
+            $sql .= " AND nome_postagem LIKE :busca";
+            $parametros[':busca'] = "%{$busca}%";
         }
-        $comando = $conexao->prepare($sql);
-        $comando->bindValue(':idUsuario', $user);
-        $comando->bindValue(':busca', $busca);
-        $comando->execute();
 
+        $comando = Database::executar($sql, $parametros);
 
         $lista = array();
-        while ($row = $comando->fetch()) {
+        while ($row = $comando->fetch(PDO::FETCH_ASSOC)) {
             $lista[] = new Postagem($row['idPostagem'], $row['nome_postagem'], $row['link_postagem'], $row['idUsuario'], $row['emailInstagram'], $row['senha'], $row['imgPost']);
         }
         return $lista;
@@ -181,56 +184,53 @@ class Postagem
 
     public static function listarTodos($organizar = 0, $user)
     {
-        $conexao = Database::getInstance();
-
         $sql = "SELECT * FROM postagens WHERE idUsuario = :idUsuario";
 
-        if ($organizar > 0) {
-            switch ($organizar) {
-                case 1:
-                    $sql .= " ORDER BY nome_postagem ASC";
-                    break;
-                case 2:
-                    $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
-                    COUNT(c.idComentario) AS num_comentarios
-                    FROM postagens p
-                    LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
-                    WHERE p.idUsuario = :idUsuario
-                    GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
-                    ORDER BY num_comentarios DESC";
-                    break;
-                case 3:
-                    $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
-                    SUM(CASE WHEN c.polaridade LIKE '%positivo%' THEN 1 ELSE 0 END) AS total_positivo
-                FROM postagens p
-                LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
-                WHERE p.idUsuario = :idUsuario
-                GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
-                ORDER BY total_positivo DESC";
-                    break;
-
-                case 4:
-                    $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
-                    SUM(CASE WHEN c.polaridade LIKE '%positivo%' THEN 1 ELSE 0 END) AS total_positivo
-                FROM postagens p
-                LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
-                WHERE p.idUsuario = :idUsuario
-                GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
-                ORDER BY total_positivo ASC";
-                    break;
-            }
+        switch ($organizar) {
+            case 1:
+                $sql .= " ORDER BY nome_postagem ASC";
+                break;
+            case 2:
+                $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
+                        COUNT(c.idComentario) AS num_comentarios
+                        FROM postagens p
+                        LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
+                        WHERE p.idUsuario = :idUsuario
+                        GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
+                        ORDER BY num_comentarios DESC";
+                break;
+            case 3:
+                $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
+                        SUM(CASE WHEN c.polaridade LIKE '%positivo%' THEN 1 ELSE 0 END) AS total_positivo
+                        FROM postagens p
+                        LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
+                        WHERE p.idUsuario = :idUsuario
+                        GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
+                        ORDER BY total_positivo DESC";
+                break;
+            case 4:
+                $sql = "SELECT p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost,
+                        SUM(CASE WHEN c.polaridade LIKE '%negativo%' THEN 1 ELSE 0 END) AS total_negativo
+                        FROM postagens p
+                        LEFT JOIN comentarios c ON p.idPostagem = c.idPostagem
+                        WHERE p.idUsuario = :idUsuario
+                        GROUP BY p.idPostagem, p.nome_postagem, p.link_postagem, p.idUsuario, p.emailInstagram, p.senha, p.imgPost
+                        ORDER BY total_negativo DESC";
+                break;
         }
 
-        $comando = $conexao->prepare($sql);
-        $comando->bindValue(':idUsuario', $user);
-        $comando->execute();
+        $parametros = [':idUsuario' => $user];
+
+        $comando = Database::executar($sql, $parametros);
+
         $lista = array();
-        while ($row = $comando->fetch()) {
+        while ($row = $comando->fetch(PDO::FETCH_ASSOC)) {
             $lista[] = new Postagem($row['idPostagem'], $row['nome_postagem'], $row['link_postagem'], $row['idUsuario'], $row['emailInstagram'], $row['senha'], $row['imgPost']);
         }
 
         return $lista;
     }
+
 
     public function ValoresPython()
     {

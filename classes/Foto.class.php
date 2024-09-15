@@ -74,10 +74,8 @@ class Foto
 
     public function incluir($id)
     {
-        $conexao = Database::getInstance();
         if (isset($_FILES['foto'])) {
 
-            // Pegar informações da imagem
             $nome_imagem = $_FILES['foto']['name'];
             $tipo_imagem = $_FILES['foto']['type'];
             $tamanho_imagem = $_FILES['foto']['size'];
@@ -92,24 +90,19 @@ class Foto
             move_uploaded_file($temp_imagem, '../asset/imgs/' . $nome_unico);
             // Salvar o caminho da imagem no banco de dados
             $sql = "UPDATE usuarios SET imagem = :imagem, nome_imagem = '$nome_imagem', tipo = '$tipo_imagem', tamanho = '$tamanho_imagem', temp = 'imgs/$nome_unico' WHERE idUsuario = :idUsuario";
-            $comando = $conexao->prepare($sql);
-            $comando->bindValue(':idUsuario', $id);
-            $comando->bindValue(':imagem', $this->foto);
-            return $comando->execute();
+
+            $parametros = [':idUsuario' => $id, ':imagem' => $this->getFoto()];
+            return Database::executar($sql, $parametros);
         }
     }
 
     public static function ApresentaImagem($id)
     {
-        $conexao = Database::getInstance();
         $sql = "SELECT imagem,nome_imagem,tipo,tamanho,temp FROM usuarios where idUsuario = :idUsuario";
-        $comando = $conexao->prepare($sql);
-        $comando->bindValue(':idUsuario', $id);
-        $comando->execute();
-        $fotos = array();
+        $parametros = [':idUsuario' => $id];
+        $comando = Database::executar($sql, $parametros);
         while ($registro  = $comando->fetch(PDO::FETCH_ASSOC)) {
-            $foto = new Foto($registro['imagem'], $registro['nome_imagem'], $registro['tipo'], $registro['tamanho'], $registro['temp']); // Um novo objeto Pessoa é criado usando os valores dos campos id, nome e telefone do registro atual.
-            array_push($fotos, $foto);
+            $fotos[] = new Foto($registro['imagem'], $registro['nome_imagem'], $registro['tipo'], $registro['tamanho'], $registro['temp']); // Um novo objeto Pessoa é criado usando os valores dos campos id, nome e telefone do registro atual.
         }
         return $fotos;
     }

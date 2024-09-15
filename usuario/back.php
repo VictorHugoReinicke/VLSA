@@ -19,7 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // verificará o método de requisi�
     $email = isset($_POST['email']) ? $_POST['email'] : "";
     $foto = isset($_POST['foto']) ? $_POST['foto'] : "";
     $conf_senha = isset($_POST['confirmasenha']) ? $_POST['confirmasenha'] : "";
-    $acao = isset($_POST['acao']) ? $_POST['acao'] : 0; //setará a $acao com o valor obtido através do campo acao
+    $acao = isset($_POST['acao']) ? $_POST['acao'] : 0;
+    if($acao == "Criar Conta")
+    $senha = password_hash($senha,PASSWORD_DEFAULT);
+
     try {
         $usuario = new Usuario(
             $id,

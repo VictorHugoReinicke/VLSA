@@ -160,7 +160,7 @@ function apresentarPerfil($listaUsuario)
 
                 <input type='file' name='foto' id='foto' accept='image/*' hidden>
 
-                <button type='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
+                <button type ='submit' class='btn btn-outline-primary' name='acao' id='acao' value='fotos'>Adicionar foto</button>
                 </form></div>
                     </div>
                     </section>
@@ -177,21 +177,13 @@ if (isset($_SESSION['user'])) {
 $busca = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : "";
 $organizar = isset($_GET['organizar']) ? $_GET['organizar'] : 0;
 if ($busca != "") {
-    if (isset($_SESSION['user'])) {
-        $user = $_SESSION['user'];
-        $lista = Postagem::listar($busca, $user);
-    } else {
+    if (!isset($_SESSION['user']))
         session_start();
-        $user = $_SESSION['user'];
-        $lista = Postagem::listar($busca, $user);
-    }
+    $user = $_SESSION['user'];
+    $lista = Postagem::listar($busca, $user);
 } else {
-    if (isset($_SESSION['user'])) {
-        $user = $_SESSION['user'];
-        $lista = Postagem::listarTodos($organizar,$user);
-    } else {
+    if (!isset($_SESSION['user']))
         session_start();
-        $user = $_SESSION['user'];
-        $lista = Postagem::listarTodos($organizar,$user);
-    }
+    $user = $_SESSION['user'];
+    $lista = Postagem::listarTodos($organizar, $user);
 }
