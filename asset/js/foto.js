@@ -1,11 +1,11 @@
 const avatarImage = document.getElementById('foto');
-const spanId = document.getElementById('spanId'); 
+const spanId = document.getElementById('spanId');
 
 avatarImage.addEventListener('change', event => {
-  const preview = document.querySelector('#preview_image'); 
+  const preview = document.querySelector('#preview_image');
 
   if (preview) {
-    preview.remove(); 
+    preview.remove();
   }
 
   const reader = new FileReader();
@@ -17,8 +17,8 @@ avatarImage.addEventListener('change', event => {
     previewImage.id = 'preview_image';
     previewImage.src = event.target.result;
 
-   
-    spanId.innerHTML = ''; 
+    // Update the spanId element with the preview image
+    spanId.innerHTML = '';
     spanId.appendChild(previewImage);
   };
 

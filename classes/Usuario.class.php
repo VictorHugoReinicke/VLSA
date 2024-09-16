@@ -129,24 +129,12 @@
 
         public function incluir()
         {
-            $conexao = Database::getInstance();
-
-
             $sql = 'INSERT INTO usuarios (nome, nome_usuario, email, cpf,rg,senha,imagem) 
-          VALUES (:Nome, :Nome_usuario, :Email, :CPF, :RG, :Senha, :Imagem)';
+            VALUES (:Nome, :Nome_usuario, :Email, :CPF, :RG, :Senha, :Imagem)';
 
+            $parametros = [':Nome' => $this->getNome(), ':Nome_usuario' => $this->getUsuario(), ':Email' => $this->getEmail(), ':CPF' => $this->getCpf(), ':RG' => $this->getRg(), ':Senha' => $this->getSenha(), ':Imagem' => $this->getImagem()];
 
-
-            $comando = $conexao->prepare($sql);
-            $comando->bindValue(':Nome', $this->nome);
-            $comando->bindValue(':Nome_usuario', $this->nome_usuario);
-            $comando->bindValue(':Email', $this->email);
-            $comando->bindValue(':CPF', $this->cpf);
-            $comando->bindValue(':RG', $this->rg);
-            $comando->bindValue(':Senha', $this->senha);
-            $comando->bindValue(':Imagem', $this->imagem);
-
-            return $comando->execute();
+            return Database::executar($sql, $parametros);
         }
 
         public function excluir()
@@ -154,73 +142,59 @@
             $conexao = Database::getInstance();
             $sql = 'DELETE 
                         FROM usuarios
-                        WHERE id = :id';
+                        WHERE idUsuario = :id';
             $comando = $conexao->prepare($sql);
-            $comando->bindValue(':id', $this->id);
+            $comando->bindValue(':id', $this->getId());
             return $comando->execute();
         }
 
 
         public function alterar()
         {
-            $conexao = Database::getInstance();
             $sql = 'UPDATE usuarios 
                         SET nome = :Nome, nome_usuario = :Nome_usuario, imagem = :Imagem, cpf = :Cpf, rg = :Rg, email = :Email, senha = :Senha
                         WHERE idUsuario = :id';
-            $comando = $conexao->prepare($sql);
-            $comando->bindValue(':id', $this->id);
-            $comando->bindValue(':Nome', $this->nome);
-            $comando->bindValue(':Nome_usuario', $this->nome_usuario);
-            $comando->bindValue(':Email', $this->email);
-            $comando->bindValue(':Cpf', $this->cpf);
-            $comando->bindValue(':Rg', $this->rg);
-            $comando->bindValue(':Senha', $this->senha);
-            $comando->bindValue(':Imagem', $this->imagem);
-            return $comando->execute();
+
+            $parametros = [':id' => $this->getId(), ':Nome' => $this->getNome(), ':Nome_usuario' => $this->getUsuario(), ':Email' => $this->getEmail(), ':CPF' => $this->getCpf(), ':RG' => $this->getRg(), ':Senha' => $this->getSenha(), ':Imagem' => $this->getImagem()];
+
+            return Database::executar($sql, $parametros);
         }
 
-        public static function login()
+        public static function login($usuario)
         {
-            $conexao = Database::getInstance();
-            $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : "";
             $sql = "SELECT * from usuarios WHERE nome_usuario = :usuario ";
-            $comando = $conexao->prepare($sql);
-            $comando->bindValue(':usuario', $usuario);
-            $comando->execute();
+            $parametros = [":usuario" => $usuario];
+        
+            $comando = Database::executar($sql, $parametros);
+        
             if ($comando->rowCount() > 0) {
-                $user = $comando->fetchAll();
-                return $user;
+                return  $comando->fetchAll();
             }
             return null;
         }
 
-
         public static function listar($id)
         {
-            $conexao = Database::getInstance();
-            $sql = "SELECT * FROM usuarios WHERE idUsuario = :idUsuario"; // Indica que queremos selecionar todos os campos da tabela pessoa, e a consulta deve ser nessa tebela
-            $comando = $conexao->prepare($sql);
-            $comando->bindValue(':idUsuario', $id);
-            $comando->execute();
-            $usuarios = array();
+            $sql = "SELECT * FROM usuarios WHERE idUsuario = :idUsuario";
 
-            while ($registro  = $comando->fetch()) {
-                $usuario = new Usuario($registro['idUsuario'], $registro['nome'], $registro['nome_usuario'], $registro['email'], $registro['cpf'], $registro['rg'], $registro['senha'], $registro['imagem']); // Um novo objeto Pessoa é criado usando os valores dos campos id, nome e telefone do registro atual.
-                array_push($usuarios, $usuario);
+            $parametros = [':idUsuario' => $id];
+
+            $comando = Database::executar($sql, $parametros);
+
+            while ($registro  = $comando->fetch(PDO::FETCH_ASSOC)) {
+                $usuario[] = new Usuario($registro['idUsuario'], $registro['nome'], $registro['nome_usuario'], $registro['email'], $registro['cpf'], $registro['rg'], $registro['senha'], $registro['imagem']); // Um novo objeto Pessoa é criado usando os valores dos campos id, nome e telefone do registro atual.
             }
-            return $usuarios;
+            return $usuario;
         }
 
 
         public static function Dados($id)
         {
-            $conexao = Database::getInstance();
             $sql = "SELECT * FROM usuarios WHERE idUsuario = :id";
-            $comando = $conexao->prepare($sql);
-            $comando->bindValue(':id', $id);
-            $comando->execute();
 
-            if ($registro  = $comando->fetch()) {
+            $parametros = [':id' => $id];
+            $comando = Database::executar($sql, $parametros);
+            if ($registro  = $comando->fetch(PDO::FETCH_ASSOC)) {
                 return new Usuario($registro['idUsuario'], $registro['nome'], $registro['nome_usuario'], $registro['email'], $registro['cpf'], $registro['rg'], $registro['senha'], $registro['imagem']);
             }
 
@@ -229,11 +203,11 @@
 
         public static function NomeUsuario($nome)
         {
-            $conexao = Database::getInstance();
             $sql = "SELECT * FROM usuarios WHERE nome_usuario = :nome";
-            $comando = $conexao->prepare($sql);
-            $comando->bindValue(':nome', $nome);
-            $comando->execute();
+
+            $parametros = [':nome'=> $nome];
+
+            $comando = Database::executar($sql, $parametros);
             if ($comando->rowCount() > 0) {
                 return "Já existe";
             }
